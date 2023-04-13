@@ -47,7 +47,9 @@ class ProductManager {
             return product;
         }else{
             return 'Product not found'
-        }
+        };
+        
+        //! Este es el ternario de la muerte que no me funciona
         // (product != undefined) ? product : 'Product not found';
 
     }
