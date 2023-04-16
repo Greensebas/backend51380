@@ -10,14 +10,14 @@ class ProductManager {
 
     addProduct( title, description, price, thumbnail, code, stock) {
         if(!title || !description || !price || !thumbnail || !code || !stock){
-            return console.log('empty fields');
+            return 'empty fields';
         };
 
         const products = this.getProducts();
         const productCode = this.products.find(item => item.code === code);
 
         if(productCode){ 
-            return console.log(`This code (${code}) already exists`);
+            return `This code (${code}) already exists`;
         };
 
         const newProduct = { 
@@ -33,12 +33,12 @@ class ProductManager {
         if(products.length > 0){
             let lastIndex = products.length - 1;
             newProduct.id = products[lastIndex].id +1;
-
             this.products.push(newProduct);
+            return newProduct;
         }else{
             newProduct.id = 1;
-
             this.products.push(newProduct);
+            return newProduct;
         }
     }
 
@@ -61,16 +61,17 @@ const products = new ProductManager();
 
 console.log(products.getProducts())
 
-products.addProduct('prod1', 'es un prod', 100, 'sin imagen', 'gae754', 10);
-products.addProduct('PROD2', 'ES UN PROD', 200, 'SIN IMAGEN', '2abc74f3', 20);
-products.addProduct('prod3', 'es un prod', 300, 'sin imagen', 'abe123', 30);
-products.addProduct('prod4', 'es un prod', 400, 'sin imagen', 'ycw687', 40);   
+console.log(products.addProduct('prod1', 'es un prod', 100, 'sin imagen', 'gae754', 10));
+console.log(products.addProduct('PROD2', 'ES UN PROD', 200, 'SIN IMAGEN', '2abc74f3', 20));
+console.log(products.addProduct('prod3', 'es un prod', 300, 'sin imagen', 'abe123', 30));
+console.log(products.addProduct('prod4', 'es un prod', 400, 'sin imagen', 'ycw687', 40));
+
 
 //! ERROR POR CAMPOS VACÍOS 
-products.addProduct('prod3', 'es un prod', 300, 'sin imagen', 30);
+console.log(products.addProduct('prod3', 'es un prod', 300, 'sin imagen', 30));
 
 //! ERROR POR CODE EXISTENTE 
-products.addProduct('prod5', 'es un prod', 500, 'sin imagen', 'gae754', 50);   
+console.log(products.addProduct('prod5', 'es un prod', 500, 'sin imagen', 'gae754', 50));
 
 //! ERROR POR ID NOT FOUND
 console.log(products.getProductById('9'));
