@@ -13,8 +13,9 @@ class ProductManager {
             return 'empty fields';
         };
 
-        const products = this.getProducts();
+        const products = this.products;
         const productCode = this.products.find(item => item.code === code);
+        let lastIndex = products.length - 1;
 
         if(productCode){ 
             return `This code (${code}) already exists`;
@@ -27,32 +28,16 @@ class ProductManager {
             thumbnail, 
             code,
             stock: +stock,
-            id: null,
+            id: this.products.length>0 ? this.products[lastIndex].id + 1 : 1,
         };
 
-        if(products.length > 0){
-            let lastIndex = products.length - 1;
-            newProduct.id = products[lastIndex].id +1;
-            this.products.push(newProduct);
-            return newProduct;
-        }else{
-            newProduct.id = 1;
-            this.products.push(newProduct);
-            return newProduct;
-        }
+        this.products.push(newProduct);
+        return `Product added successfully with id ${newProduct.id}`;
     }
 
     getProductById(id) {
         const product = this.products.find(item => item.id === +id);
-        if(product){
-            return product;
-        }else{
-            return `Product with id: ${id} not found`
-        };
-
-        //! Este es el ternario de la muerte que no me funciona
-        // (product != undefined) ? product : 'Product not found';
-
+        return (product != undefined) ? product : `Product with id: ${id} not found`;
     }
 
 };
