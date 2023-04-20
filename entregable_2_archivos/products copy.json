@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "name": "Sebastian Acevedo",
+    "profession": "Psicólogo",
+    "fee": 2000
+  },
+  {
+    "id": 2,
+    "name": "Guillermo Marillet",
+    "profession": "Médico clínico",
+    "fee": 3500
+  },
+  {
+    "id": 3,
+    "name": "Nicolas De Marco",
+    "profession": "Médico clínico",
+    "fee": 1800
+  },
+  {
+    "id": 4,
+    "name": "Marcela Marillet",
+    "profession": "Médica gastroenteróloga",
+    "fee": 2500
+  }
+]

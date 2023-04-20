@@ -1,0 +1,11 @@
+[
+  {
+    "title": "Producto 1",
+    "description": "Es el producto 1",
+    "price": 100,
+    "thumbnail": "Sin imagen",
+    "code": "cwl526",
+    "stock": 10,
+    "id": 1
+  }
+]
