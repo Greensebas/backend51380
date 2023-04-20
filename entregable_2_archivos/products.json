@@ -13,7 +13,7 @@
     "description": "Es el producto 2",
     "price": 200,
     "thumbnail": "Sin imagen",
-    "code": "cwl526",
+    "code": "vnw726",
     "stock": 20,
     "id": 2
   },
@@ -22,17 +22,17 @@
     "description": "Es el producto 3",
     "price": 300,
     "thumbnail": "Sin imagen",
-    "code": "cwl526",
+    "code": "ves5666",
     "stock": 30,
     "id": 3
   },
   {
-    "title": "Producto 4",
-    "description": "Es el producto 4",
-    "price": 400,
+    "title": "Producto 6",
+    "description": "Es el producto 6",
+    "price": 600,
     "thumbnail": "Sin imagen",
-    "code": "cwl526",
-    "stock": 40,
+    "code": "cwdb26",
+    "stock": 60,
     "id": 4
   }
 ]

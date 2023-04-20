@@ -123,7 +123,7 @@ let updProduct = {
     description: 'Es el producto 4',
     price: 400,
     thumbnail: 'Sin imagen', 
-    code: 'cwl526',
+    code: 'vnap888',
     stock: 40,
     }
 
@@ -134,7 +134,7 @@ const asyncFn = async () => {
     // console.log(await products.addProduct(newProduct));
     // console.log(await products.getProductById(2));
     // console.log(await products.deleteProductById(3));
-    console.log(await products.updateProduct( 4, updProduct ));
+    // console.log(await products.updateProduct( 4, updProduct ));
 }
 
 asyncFn();
