@@ -110,12 +110,12 @@ class ProductManager {
 
 
 let newProduct = { 
-    title: 'Producto 1', 
-    description: 'Es el producto 1',
-    price: 100,
+    title: 'Producto 7', 
+    description: 'Es el producto 7',
+    price: 700,
     thumbnail: 'Sin imagen', 
-    code: 'cwl526',
-    stock: 10,
+    code: 'cwl77526',
+    stock: 70,
     }
 
 let updProduct = { 
