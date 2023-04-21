@@ -7,9 +7,21 @@ class ProductManager {
 
     async getProducts() {
         try {
-            const fileToRead = await fs.promises.readFile(this.path, 'utf-8'); 
-            const products = JSON.parse(fileToRead);
-            return products;
+
+            //! La verdad es que con esta parte no estoy conforme, porque estoy mezclando un método síncrono cuando
+            //! quise hacer todo asíncrono, pero no pude hacer funcionar el método access de fs... no hubo forma y la única manera
+            //! de cumplir con la consigna de retornar un array vacío al primer intento que encontré fue esta!
+
+            if(fs.existsSync(this.path)){
+                const fileToRead = await fs.promises.readFile(this.path, 'utf-8'); 
+                const products = JSON.parse(fileToRead);
+                return products;
+            } else {
+                await fs.promises.writeFile(this.path, '[]');
+                const fileToRead = await fs.promises.readFile(this.path, 'utf-8'); 
+                const products = JSON.parse(fileToRead);
+                return products;
+            }
         }
         catch(error) {
             console.log(error)
@@ -130,7 +142,7 @@ let updProduct = {
 
 const products = new ProductManager('./products.json');
 const asyncFn = async () => {
-    // console.log(await products.getProducts());
+    console.log(await products.getProducts());
     // console.log(await products.addProduct(newProduct));
     // console.log(await products.getProductById(2));
     // console.log(await products.deleteProductById(3));
