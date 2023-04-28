@@ -14,20 +14,20 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
-app.get('/products', async (req, res) => {
+app.get('/api/products', async (req, res) => {
     let limit = req.query.limit;
     console.log(limit)
     const allProducts = await products.getProducts();
     let nProducts = allProducts.slice(0, +limit);
 
-    return (!limit) ? res.send(allProducts) : res.send(nProducts)
+    return (!limit) ? res.status(200).send(allProducts) : res.status(200).send(nProducts)
 
 });
 
-app.get('/products/:pid', async (req, res) => {
+app.get('/api/products/:pid', async (req, res) => {
     let pid = req.params.pid;
     const product = await products.getProductById(+pid)
-    return res.send(product)
+    return res.status(200).send(product)
 });
 
 
