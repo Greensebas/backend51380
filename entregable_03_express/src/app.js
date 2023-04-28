@@ -16,7 +16,6 @@ app.use(express.urlencoded({ extended: true }));
 
 app.get('/api/products', async (req, res) => {
     let limit = req.query.limit;
-    console.log(limit)
     const allProducts = await products.getProducts();
     let nProducts = allProducts.slice(0, +limit);
 
@@ -28,6 +27,7 @@ app.get('/api/products/:pid', async (req, res) => {
     let pid = req.params.pid;
     const product = await products.getProductById(+pid)
     return res.status(200).send(product)
+    // return (!product) ? res.status(402).send(`product with id ${pid} do not exists`) : res.status(200).send(product)
 });
 
 

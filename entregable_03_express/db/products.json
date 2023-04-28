@@ -27,12 +27,12 @@
       "id": 3
     },
     {
-      "title": "Producto 4",
-      "description": "Es el producto 4",
-      "price": 400,
-      "thumbnail": "Sin imagen",
-      "code": "x99clo",
-      "stock": 40,
+      "title": "xxxx",
+      "description": "xxxx",
+      "price": "xxxx",
+      "thumbnail": "xxxx",
+      "code": "xxxx",
+      "stock": "xxxx",
       "id": 4
     },
     {
@@ -52,41 +52,5 @@
       "code": "cwdbf26",
       "stock": 60,
       "id": 6
-    },
-    {
-      "title": "Producto 7",
-      "description": "Es el producto 7",
-      "price": 700,
-      "thumbnail": "Sin imagen",
-      "code": "cmv9f26",
-      "stock": 70,
-      "id": 7
-    },
-    {
-      "title": "Producto 8",
-      "description": "Es el producto 8",
-      "price": 800,
-      "thumbnail": "Sin imagen",
-      "code": "ni76",
-      "stock": 80,
-      "id": 8
-    },
-    {
-      "title": "Producto 9",
-      "description": "Es el producto 9",
-      "price": 900,
-      "thumbnail": "Sin imagen",
-      "code": "cvvvf256",
-      "stock": 90,
-      "id": 9
-    },
-    {
-      "title": "Producto 10",
-      "description": "Es el producto 10",
-      "price": 1000,
-      "thumbnail": "Sin imagen",
-      "code": "ciik2556",
-      "stock": 100,
-      "id": 10
     }
   ]
