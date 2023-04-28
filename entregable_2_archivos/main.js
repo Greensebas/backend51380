@@ -7,11 +7,6 @@ class ProductManager {
 
     async getProducts() {
         try {
-
-            //! La verdad es que con esta parte no estoy conforme, porque estoy mezclando un método síncrono cuando
-            //! quise hacer todo asíncrono, pero no pude hacer funcionar el método access de fs... no hubo forma y la única manera
-            //! de cumplir con la consigna de retornar un array vacío al primer intento que encontré fue esta!
-
             if(fs.existsSync(this.path)){
                 const fileToRead = await fs.promises.readFile(this.path, 'utf-8'); 
                 const products = JSON.parse(fileToRead);
@@ -42,7 +37,7 @@ class ProductManager {
                 return `This code (${prod.code}) already exists`;
             };
     
-            const newProduct = { 
+            const newProduct = {
                 title: prod.title, 
                 description: prod.description,
                 price: +prod.price,
