@@ -25,7 +25,7 @@ class ProductManager {
 
     async addProduct( prod ) {
         if(!prod.title || !prod.description || !prod.price || !prod.thumbnail || !prod.code || !prod.stock){
-            return 'empty fields';
+            return `Body format error`;
         };
 
         try {
@@ -34,7 +34,7 @@ class ProductManager {
             let lastIndex = products.length - 1;
     
             if(productCode){ 
-                return `This code (${prod.code}) already exists`;
+                return `Code error`;
             };
     
             const newProduct = {
@@ -76,7 +76,7 @@ class ProductManager {
 
             const product = products.find(item => item.id === +id);
             if(product == undefined){
-                return `Product with id: '${id}' not found`
+                return null
             }
 
             products = products.filter(item => item.id !== +id);
@@ -96,11 +96,11 @@ class ProductManager {
             const productIndex = products.findIndex(item => item.id === +id);
 
             if(productIndex === -1){
-                return `Product with id: '${id}' not found`
+                return `ID error`
             }
 
             if(!prod.title || !prod.description || !prod.price || !prod.thumbnail || !prod.code || !prod.stock){
-                return 'empty fields';
+                return 'Body format error';
             };
 
             products[productIndex] = {...prod, id: id};
