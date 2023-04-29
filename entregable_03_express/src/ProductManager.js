@@ -62,7 +62,8 @@ class ProductManager {
         try {
             const products = await this.getProducts();
             const product = products.find(item => item.id === +id);
-            return (product != undefined) ? product : `Product with id: '${id}' not found`;
+            return (product != undefined) ? product : null;
+            // return (product != undefined) ? product : new Error (`Product with id: '${id}' not found`);
         }
         catch(error) {
             throw new Error(error.message);
