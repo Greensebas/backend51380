@@ -19,7 +19,7 @@ class ProductManager {
             }
         }
         catch(error) {
-            console.log(error)
+            throw new Error(error.message);
         }
     };
 
@@ -54,7 +54,7 @@ class ProductManager {
 
         }
         catch(error) {
-            console.log(error);
+            throw new Error(error.message);
         }
     }
 
@@ -65,7 +65,7 @@ class ProductManager {
             return (product != undefined) ? product : `Product with id: '${id}' not found`;
         }
         catch(error) {
-            console.log(error)
+            throw new Error(error.message);
         }
     }
 
@@ -84,7 +84,7 @@ class ProductManager {
             return `Product with id '${id}' was deleted`;
         }
         catch(error) {
-            console.log(error);
+            throw new Error(error.message);
         }
     }
 
@@ -109,7 +109,7 @@ class ProductManager {
 
         }
         catch(error){
-            console.log(error);
+            throw new Error(error.message);
         }
     }
 

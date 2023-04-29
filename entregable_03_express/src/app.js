@@ -8,7 +8,7 @@ const conectedServer = app.listen(PORT, () => {
     console.log(`🚀Server is up and running on port: ${PORT}🚀`);
 })
 
-const products = new ProductManager('./products.json');
+const products = new ProductManager('./db/products.json');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

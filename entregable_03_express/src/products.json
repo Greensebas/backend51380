@@ -27,12 +27,12 @@
     "id": 3
   },
   {
-    "title": "xxxx",
-    "description": "xxxx",
-    "price": "xxxx",
-    "thumbnail": "xxxx",
-    "code": "xxxx",
-    "stock": "xxxx",
+    "title": "Producto 4",
+    "description": "Es el producto 4",
+    "price": 400,
+    "thumbnail": "Sin imagen",
+    "code": "x99clo",
+    "stock": 40,
     "id": 4
   },
   {
