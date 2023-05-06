@@ -1,21 +1,9 @@
-const express = require('express');
-const ProductManager = require('./ProductManager.js');
-
-const PORT = process.env.PORT || 8080;
-const app = express();
-
-const conectedServer = app.listen(PORT, () => {
-    console.log(`🚀Server is up and running on port: ${PORT}🚀`);
-})
+import { ProductManager } from "../models/products/ProductManager.js";
 
 const productManager = new ProductManager('./db/products.json');
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
-
-// GET
-app.get('/api/products', async (req, res) => {
+const getProductsController = async (req, res) => {
     try {
         let limit = req.query.limit;
         const allProducts = await productManager.getProducts();
@@ -26,26 +14,28 @@ app.get('/api/products', async (req, res) => {
     catch(error) {
         res.status(500).json({ success: false, result: error.message });
     }
-});
+};
 
 
-//GET BY ID
-app.get('/api/products/:pid', async (req, res) => {
-    try {
+
+
+const getProductByIdController = async (req, res) => {
+        try {
         let pid = req.params.pid;
-        let product = await productManager.getProductById(+pid)
+        let product = await productManager.getProductById(+pid);
 
         return (!product) ? res.status(404).json(`product with id ${pid} do not exists`) : res.status(200).json(product)
     }
     catch (error) {
         res.status(500).json( {success: false, result: error.message} );
     }
-});
+};
 
 
-// POST
-app.post('/api/products', async (req, res) => {
-    try {
+
+
+const addProductController = async (req, res) => {
+        try {
         let prod = req.body;
         let classResponse = await productManager.addProduct(prod);
 
@@ -63,12 +53,13 @@ app.post('/api/products', async (req, res) => {
     catch (error) {
         res.status(500).json( {success: false, result: error.message} );
     }
-})
+};
 
 
-// DELETE BY ID
-app.delete('/api/products/:pid', async (req, res) => {
-    try {
+
+
+const deleteProductByIdController = async (req, res) => {
+        try {
         let pid = req.params.pid;
         let deletedProduct = await productManager.deleteProductById(+pid);
 
@@ -77,12 +68,13 @@ app.delete('/api/products/:pid', async (req, res) => {
     catch (error) {
         res.status(500).json( {success: false, result: error.message} );
     }
-})
+};
 
 
-// UPDATE PRODUCT
-app.put('/api/products/:pid', async (req, res) => {
-    try {
+
+
+const updatedProductController = async (req, res) => {
+        try {
         let prod = req.body;
         let pid = req.params.pid;
         let updatedProduct = await productManager.updateProduct(+pid, prod);
@@ -101,11 +93,12 @@ app.put('/api/products/:pid', async (req, res) => {
     catch (error) {
         res.status(500).json( {success: false, result: error.message} );
     }
-});
+};
 
-
-
-
-conectedServer.on('error', (error) => {
-    console.log(error.message);
-});
+export {
+    getProductsController,
+    getProductByIdController,
+    addProductController,
+    deleteProductByIdController,
+    updatedProductController,
+}
