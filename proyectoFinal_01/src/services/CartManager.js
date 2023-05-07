@@ -1,6 +1,7 @@
 import fs from 'fs';
 import { v4 as uuid } from 'uuid';
 
+
 class CartManager {
 
     constructor (path) {
@@ -46,8 +47,40 @@ class CartManager {
     async getCartById( id ) {
         try {
             let carts = await this.getCarts();
-            let cart = carts.find(item => item.id === id)
+            let cart = carts.find(item => item.id === id);
             return ( cart != undefined) ? cart : null;
+        }
+        catch(error) {
+            throw new Error(error.message);
+        }
+    };
+
+    async addToCart( cid, pid ) {
+        try{
+            let carts = await this.getCarts();
+            let cartIndex = carts.findIndex(item => item.id === cid);
+            let cart = await this.getCartById( cid );   // busca el carrito por el cid
+            let prodInCartIndex = cart.products.findIndex(item => item.id === pid); // busca el producto en el carrito por el pid
+
+            let prod = {
+                id: pid,
+                quantity: 1
+            };
+
+            if(prodInCartIndex === -1){
+                cart.products.push(prod);
+                carts[cartIndex] = cart;
+                await fs.promises.writeFile(this.path, JSON.stringify(carts, null, 2));
+                
+                return `Product with id '${pid}' was added`;
+            }
+            else{
+                cart.products[prodInCartIndex].quantity ++;
+                carts[cartIndex] = cart;
+                await fs.promises.writeFile(this.path, JSON.stringify(carts, null, 2));
+
+                return `Product with id '${pid}' was added`;
+            }
         }
         catch(error) {
             throw new Error(error.message);

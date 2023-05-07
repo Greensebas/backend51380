@@ -13,6 +13,7 @@ const saveCartController = async (req, res) => {
     }
 };
 
+// GET /api/carts/:cid
 const getCartByIdController = async (req, res) => {
     try{
         let cid = req.params.cid
@@ -24,7 +25,21 @@ const getCartByIdController = async (req, res) => {
     }
 };
 
+// POST /api/carts/:cid/product/:pid 
+const addToCartController = async (req, res) => {
+    try {
+        let cid = req.params.cid;
+        let pid = req.params.pid;
+        let cart = await cartManager.addToCart(cid, pid);
+        return (!cart) ? res.status(404).json({ success: false, result: `Cart with id ${cid} do not exists`}) : res.status(200).json( {success: true, result: cart} );
+    }
+    catch(error) {
+        res.status(500).json({ success: false, result: error.message });
+    }
+}
+
 export {
     saveCartController,
-    getCartByIdController
+    getCartByIdController,
+    addToCartController,
 }

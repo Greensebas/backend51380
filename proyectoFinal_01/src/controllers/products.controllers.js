@@ -51,7 +51,7 @@ const addProductController = async (req, res) => {
     }
 };
 
-// DELETE /api/products/pid
+// DELETE /api/products/:pid
 const deleteProductByIdController = async (req, res) => {
     try {
         let pid = req.params.pid;
@@ -96,6 +96,7 @@ const urlNotFoundController = async (req, res) => {
 
 
 export {
+    productManager,
     getProductsController,
     getProductByIdController,
     addProductController,
