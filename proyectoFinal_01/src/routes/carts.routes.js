@@ -1,6 +1,7 @@
 import express from 'express';
 import {
-    saveCartController
+    saveCartController,
+    getCartByIdController,
 } from '../controllers/carts.controllers.js';
 
 
@@ -8,7 +9,7 @@ import {
 const router = express.Router()
 
 router.post('/', saveCartController);
-// router.get('/:cid', getCartByIdController);
+router.get('/:cid', getCartByIdController);
 // router.post('/:cid/product/:pid', addToCartController);
 
 

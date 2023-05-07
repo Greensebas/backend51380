@@ -5,14 +5,10 @@
   },
   {
     "id": "58d76760-383c-410b-af1b-d2d1b01637f6",
-    "products": []
+    "products": [1,2,3,4,5]
   },
   {
-    "id": "a25c540f-dd0a-400f-9832-2e0b06fb6ca1",
-    "products": []
-  },
-  {
-    "id": "2991b4b0-6465-4fe9-bc1c-f58ed0e3d319",
+    "id": "f098bae8-9542-464d-9744-c347655f47ae",
     "products": []
   }
 ]
