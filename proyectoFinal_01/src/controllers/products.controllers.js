@@ -1,8 +1,8 @@
-import { ProductManager } from "../models/products/ProductManager.js";
+import { ProductManager } from "../services/ProductManager.js";
 
 const productManager = new ProductManager('./db/products.json');
 
-
+// GET /api/products
 const getProductsController = async (req, res) => {
     try {
         let limit = req.query.limit;
@@ -16,11 +16,9 @@ const getProductsController = async (req, res) => {
     }
 };
 
-
-
-
+// GET /api/products/pid
 const getProductByIdController = async (req, res) => {
-        try {
+    try {
         let pid = req.params.pid;
         let product = await productManager.getProductById(+pid);
 
@@ -31,11 +29,9 @@ const getProductByIdController = async (req, res) => {
     }
 };
 
-
-
-
+// POST /api/products
 const addProductController = async (req, res) => {
-        try {
+    try {
         let prod = req.body;
         let classResponse = await productManager.addProduct(prod);
 
@@ -55,11 +51,9 @@ const addProductController = async (req, res) => {
     }
 };
 
-
-
-
+// DELETE /api/products/pid
 const deleteProductByIdController = async (req, res) => {
-        try {
+    try {
         let pid = req.params.pid;
         let deletedProduct = await productManager.deleteProductById(+pid);
 
@@ -70,11 +64,9 @@ const deleteProductByIdController = async (req, res) => {
     }
 };
 
-
-
-
-const updatedProductController = async (req, res) => {
-        try {
+// PUT /api/products/pid
+const updateProductController = async (req, res) => {
+    try {
         let prod = req.body;
         let pid = req.params.pid;
         let updatedProduct = await productManager.updateProduct(+pid, prod);
@@ -95,10 +87,19 @@ const updatedProductController = async (req, res) => {
     }
 };
 
+
+const urlNotFoundController = async (req, res) => {
+    const method = req.method
+    const route = req.url
+    return res.status(404).json({ succes: false, error: `Error: -2 Route ${route} , Method ${method} not implemented. The requested URL was not found on this server!`})
+  }
+
+
 export {
     getProductsController,
     getProductByIdController,
     addProductController,
     deleteProductByIdController,
-    updatedProductController,
+    updateProductController,
+    urlNotFoundController,
 }

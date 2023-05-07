@@ -1,9 +1,11 @@
 import express from 'express';
-import productRoutes from './products/products.routes.js'
+import productsRoutes from './products.routes.js'
+import cartsRoutes from './carts.routes.js'
 
 const router = express.Router();
 
-router.use('/products', productRoutes);
+router.use('/products', productsRoutes);
+router.use('/carts', cartsRoutes);
 
 
 
