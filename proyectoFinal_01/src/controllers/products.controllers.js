@@ -36,7 +36,7 @@ const addProductController = async (req, res) => {
         let classResponse = await productManager.addProduct(prod);
 
         if(classResponse === 'Body format error'){
-            return res.status(400).json( {success: false, result: `Wrong body format. The product must be contain 'title', 'description', 'price', 'thumbnail', 'code' and 'stock`});
+            return res.status(400).json( {success: false, result: `Wrong body format. The product must be contain 'title', 'description', 'price', 'status', 'category', 'code' and 'stock`});
         };
 
         if(classResponse === 'Code error'){

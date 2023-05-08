@@ -25,7 +25,7 @@ class ProductManager {
     };
 
     async addProduct( prod ) {
-        if(!prod.title || !prod.description || !prod.price || !prod.thumbnail || !prod.code || !prod.stock){
+        if(!prod.title || !prod.description || !prod.price || !prod.status || !prod.category || !prod.code || !prod.stock){
             return `Body format error`;
         };
 
@@ -42,6 +42,8 @@ class ProductManager {
                 title: prod.title, 
                 description: prod.description,
                 price: +prod.price,
+                status: prod.status?? true,
+                category: prod.category,
                 thumbnail: prod.thumbnail, 
                 code: prod.code,
                 stock: +prod.stock,
@@ -100,7 +102,7 @@ class ProductManager {
                 return `ID error`
             }
 
-            if(!prod.title || !prod.description || !prod.price || !prod.thumbnail || !prod.code || !prod.stock){
+            if(!prod.title || !prod.description || !prod.price || !prod.status || !prod.category || !prod.code || !prod.stock){
                 return 'Body format error';
             };
 
