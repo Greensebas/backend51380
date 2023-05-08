@@ -88,19 +88,10 @@ const updateProductController = async (req, res) => {
 };
 
 
-const urlNotFoundController = async (req, res) => {
-    const method = req.method
-    const route = req.url
-    return res.status(404).json({ succes: false, error: `Error: -2 Route ${route} , Method ${method} not implemented. The requested URL was not found on this server!`})
-  }
-
-
 export {
-    productManager,
     getProductsController,
     getProductByIdController,
     addProductController,
     deleteProductByIdController,
     updateProductController,
-    urlNotFoundController,
 }

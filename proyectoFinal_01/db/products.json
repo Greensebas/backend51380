@@ -108,16 +108,5 @@
     "code": "ciik2556",
     "stock": 100,
     "id": 10
-  },
-  {
-    "title": "Producto 11",
-    "description": "Es el producto 11",
-    "price": 1100,
-    "status": true,
-    "category": "Sin categorizar",
-    "thumbnail": "Sin imagen",
-    "code": "vhow76jv",
-    "stock": 110,
-    "id": 11
   }
 ]
