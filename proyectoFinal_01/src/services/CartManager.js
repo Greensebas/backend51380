@@ -59,20 +59,18 @@ class CartManager {
         try{
             let carts = await this.getCarts();
             let cartIndex = carts.findIndex(item => item.id === cid);
-            let cart = await this.getCartById( cid ); 
+            
+            if(cartIndex === -1){
+                throw new Error(`CID error`);
+            }
+            
+            let cart = carts[cartIndex]; 
             let prodInCartIndex = cart.products.findIndex(item => item.id === pid); 
-            console.log(cartIndex)
 
             let prod = {
                 id: pid,
                 quantity: 1
             };
-
-            //! Esto no entiendo por qué motivo no lo toma... el findIndex no devuelve -1
-            if(cartIndex === -1){
-                console.log('first')
-                return `ID error`;
-            }
 
             if(prodInCartIndex === -1){
                 cart.products.push(prod);
@@ -98,25 +96,24 @@ class CartManager {
         try{
             let carts = await this.getCarts();
             let cartIndex = carts.findIndex(item => item.id === cid);
-            let cart = await this.getCartById( cid ); 
+            
+            if(cartIndex === -1){
+                throw new Error(`CID error`);
+            }
+            
+            let cart = carts[cartIndex];
             let prodInCartIndex = cart.products.findIndex(item => item.id === pid);
             
-            //! Esto no entiendo por qué motivo no lo toma... el findIndex no devuelve -1
-            if(cartIndex === -1){
-                return `CID error`;
-            }
-            
             if(prodInCartIndex === -1){
-                return `PID error`;
+                throw new Error(`PID error`);
             }
             
-            // console.log(prodInCartIndex)
             if(prodInCartIndex >= 0){
-                cart.products[prodInCartIndex].quantity > 1 ? cart.products[prodInCartIndex].quantity -- :cart.products.splice(prodInCartIndex, 1);
+                cart.products[prodInCartIndex].quantity > 1 ? cart.products[prodInCartIndex].quantity -- : cart.products.splice(prodInCartIndex, 1);
                 carts[cartIndex] = cart;
 
                 await fs.promises.writeFile(this.path, JSON.stringify(carts, null, 2));
-                return `Product with id '${pid}' was deleted desde CartManager`;
+                return `Product with id '${pid}' was deleted`;
             }
         }
         catch(error) {

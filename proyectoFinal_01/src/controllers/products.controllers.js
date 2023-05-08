@@ -5,9 +5,9 @@ const productManager = new ProductManager('./db/products.json');
 // GET /api/products
 const getProductsController = async (req, res) => {
     try {
-        let limit = req.query.limit;
+        let limit = +req.query.limit;
         const allProducts = await productManager.getProducts();
-        let nProducts = allProducts.slice(0, +limit);
+        let nProducts = allProducts.slice(0, limit);
     
         return (!limit) ? res.status(200).json({ success: true, result: allProducts }) : res.status(200).json({ success: true, result: nProducts })
     }
