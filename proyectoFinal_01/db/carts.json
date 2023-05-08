@@ -38,20 +38,12 @@
     "id": "9a9cde2e-5337-4047-bbc3-34507dd4fab7",
     "products": [
       {
+        "id": "1",
+        "quantity": 3
+      },
+      {
         "id": "5",
         "quantity": 2
-      },
-      {
-        "id": "1",
-        "quantity": 1
-      },
-      {
-        "id": "6",
-        "quantity": 4
-      },
-      {
-        "id": "2",
-        "quantity": 1
       }
     ]
   }

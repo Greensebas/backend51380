@@ -59,33 +59,70 @@ class CartManager {
         try{
             let carts = await this.getCarts();
             let cartIndex = carts.findIndex(item => item.id === cid);
-            let cart = await this.getCartById( cid );   // busca el carrito por el cid
-            let prodInCartIndex = cart.products.findIndex(item => item.id === pid); // busca el producto en el carrito por el pid
+            let cart = await this.getCartById( cid ); 
+            let prodInCartIndex = cart.products.findIndex(item => item.id === pid); 
+            console.log(cartIndex)
 
             let prod = {
                 id: pid,
                 quantity: 1
             };
 
+            //! Esto no entiendo por qué motivo no lo toma... el findIndex no devuelve -1
+            if(cartIndex === -1){
+                console.log('first')
+                return `ID error`;
+            }
+
             if(prodInCartIndex === -1){
                 cart.products.push(prod);
                 carts[cartIndex] = cart;
+
                 await fs.promises.writeFile(this.path, JSON.stringify(carts, null, 2));
-                
                 return `Product with id '${pid}' was added`;
             }
             else{
                 cart.products[prodInCartIndex].quantity ++;
                 carts[cartIndex] = cart;
-                await fs.promises.writeFile(this.path, JSON.stringify(carts, null, 2));
 
+                await fs.promises.writeFile(this.path, JSON.stringify(carts, null, 2));
                 return `Product with id '${pid}' was added`;
             }
         }
         catch(error) {
             throw new Error(error.message);
         }
-    }
+    };
+
+    async removeToCart( cid, pid ) {
+        try{
+            let carts = await this.getCarts();
+            let cartIndex = carts.findIndex(item => item.id === cid);
+            let cart = await this.getCartById( cid ); 
+            let prodInCartIndex = cart.products.findIndex(item => item.id === pid);
+            
+            //! Esto no entiendo por qué motivo no lo toma... el findIndex no devuelve -1
+            if(cartIndex === -1){
+                return `CID error`;
+            }
+            
+            if(prodInCartIndex === -1){
+                return `PID error`;
+            }
+            
+            // console.log(prodInCartIndex)
+            if(prodInCartIndex >= 0){
+                cart.products[prodInCartIndex].quantity > 1 ? cart.products[prodInCartIndex].quantity -- :cart.products.splice(prodInCartIndex, 1);
+                carts[cartIndex] = cart;
+
+                await fs.promises.writeFile(this.path, JSON.stringify(carts, null, 2));
+                return `Product with id '${pid}' was deleted desde CartManager`;
+            }
+        }
+        catch(error) {
+            throw new Error(error.message);
+        }
+    };
 
 }
 
