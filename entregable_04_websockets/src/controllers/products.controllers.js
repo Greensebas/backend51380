@@ -94,4 +94,5 @@ export {
     addProductController,
     deleteProductByIdController,
     updateProductController,
+    productManager,
 }
