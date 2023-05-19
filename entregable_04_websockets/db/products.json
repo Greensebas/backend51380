@@ -108,38 +108,5 @@
     "code": "ciik2556",
     "stock": 100,
     "id": 10
-  },
-  {
-    "title": "prod11",
-    "description": "adsf",
-    "price": 1,
-    "status": "true",
-    "category": "adfa",
-    "thumbnail": "adfa",
-    "code": "vzc",
-    "stock": 1,
-    "id": 11
-  },
-  {
-    "title": "prod12",
-    "description": "adsf",
-    "price": 1,
-    "status": "true",
-    "category": "adfa",
-    "thumbnail": "adfa",
-    "code": "vzcnnn",
-    "stock": 1,
-    "id": 12
-  },
-  {
-    "title": "prod13",
-    "description": "asdfadf",
-    "price": 1,
-    "status": "true",
-    "category": "adsf",
-    "thumbnail": "asdf",
-    "code": "vevwws",
-    "stock": 4,
-    "id": 13
   }
 ]

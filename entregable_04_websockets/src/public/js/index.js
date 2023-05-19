@@ -2,20 +2,29 @@ const addProductForm = document.getElementById("product-form");
 const addProductFormRealtime = document.getElementById("product-form-realtime");
 const productsListContainer = document.getElementById("products_list");
 
+
+const deleteProduct = async (id) => {
+        
+    const response = await fetch(`/api/products/${id}`, {
+        method: "delete",
+    });
+    
+    if(response.ok) {
+        const li = document.getElementById(id);
+        li.remove();
+    }
+};
+
+
+const deleteProductSocket = async (id) => {       
+    socket.emit('deleteProduct', id)
+};
+
+
 // CON FETCH
 try {
 
-    const deleteProduct = async (id) => {
-        
-        const response = await fetch(`/api/products/${id}`, {
-            method: "delete",
-        });
-        
-        if(response.ok) {
-            const li = document.getElementById(id);
-            li.remove;
-        }
-    };
+
 
     // Creo una función para el botón submit para agregar productos desde el formulario
     addProductForm.addEventListener("submit", async (e) => {
@@ -40,10 +49,15 @@ try {
 
         if (response.ok) {
             const li = `
-            <li id="${product.id}">
+            <li class="card" id="${product.id}">
                 <div>
-                    <p>${product.title}</p>
-                    <button onclick="deleteProduct(${product.id})">Delete</button>
+                    <h2>${product.title}</h2>
+                    <h4>${product.description}</h4>
+                    <p>Price: <span>$${product.price}</span> </p>
+                    <p>Code: <span>${product.code}</span> </p>
+                    <p>Stock: <span>${product.stock}</span></p>
+                    <p>Category: <span>${product.category}</span></p>
+                    <button class="delete_btn" onclick="deleteProduct(${product.id})">Delete</button>
                 </div>
             </li>
             `;
@@ -59,9 +73,7 @@ try {
 // CON SOCKET.IO
 try {
 
-    const deleteProductSocket = async (id) => {       
-        socket.emit('deleteProduct', id)
-    };
+
 
 
     socket.on('connect', () => {
@@ -70,10 +82,15 @@ try {
 
     socket.on('productCreated', product => {
         const li = `
-        <li id="${product.id}">
+        <li class="card" id="${product.id}">
             <div>
-                <p>${product.title}</p>
-                <button onclick="deleteProductSocket(${product.id})">Delete</button>
+                <h2>${product.title}</h2>
+                <h4>${product.description}</h4>
+                <p>Price: <span>$${product.price}</span> </p>
+                <p>Code: <span>${product.code}</span> </p>
+                <p>Stock: <span>${product.stock}</span></p>
+                <p>Category: <span>${product.category}</span></p>
+                <button class="delete_btn" onclick="deleteProduct(${product.id})">Delete</button>
             </div>
         </li>
         `;
@@ -83,7 +100,7 @@ try {
 
     socket.on('productDeleted', (id) => {
         const li = document.getElementById(id);
-        li.remove;
+        li.remove();
     } )
 
    // Creo una función para el botón submit para agregar productos desde el formulario
