@@ -53,7 +53,7 @@ class ProductManager {
             products.push(newProduct);
 
             await fs.promises.writeFile(this.path, JSON.stringify(products, null, 2));
-            return `Product added successfully with id ${newProduct.id}`;
+            return {msg:`Product added successfully with id ${newProduct.id}`, payload: newProduct};
 
         }
         catch(error) {

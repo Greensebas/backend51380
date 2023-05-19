@@ -28,7 +28,12 @@
 
 <ul class="products_list" id="products_list">
   {{#each products}}
-  <li>{{this.title}}</li>
+    <li id="{{this.id}}">
+      <div>
+        <p>{{this.title}}</p>
+        <button onclick="deleteProductSocket({{this.id}})">Delete</button>
+      </div>
+    </li>
   {{/each}}
 </ul>
 
@@ -38,3 +43,6 @@
 
 
 <script src="/socket.io/socket.io.js"></script>
+<script>
+  const socket = io();
+</script>

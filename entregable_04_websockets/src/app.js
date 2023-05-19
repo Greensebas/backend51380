@@ -1,7 +1,6 @@
 import express from 'express';
 import apiRoutes from './routes/app.routes.js';
-import handlebarsRoutes from './routes/handlebar.routes.js';
-import realTimeProductsRoutes from './routes/realTimeProducts.routes.js';
+
 import { __dirname } from './utils.js';
 import path from 'path';
 import handebars from 'express-handlebars';
@@ -31,8 +30,6 @@ app.set('views', path.join(__dirname, 'views'));
 app.use('/api', apiRoutes);
 app.use('/', viewsRouter);
 
-// app.use('/', handlebarsRoutes);
-// app.use('/realtimeproducts', realTimeProductsRoutes);
 
 // ---- || ----
 
@@ -46,21 +43,18 @@ httpServer.on('error', (error) => {
 
 
 // Socket io
-const io = new Server(httpServer);
+const socketServer = new Server(httpServer);
 
-io.on('connection', (socket) => {
+socketServer.on('connection', (socket) => {
     console.log(`New Client Connection with ID: ${socket.id}`);
 
-    socket.on('new-product', async (newProd) => {
-        try {
-            await productManager.addProduct(newProd );
+    socket.on('createProduct', async data => {
+        const product = await productManager.addProduct(data);
+        socketServer.emit('productCreated', product.payload );
+    });
 
-            let productList = await productManager.getProducts();
-
-            socket.emit('products', productList);
-        }
-        catch(error) {
-            console.log(error.message);
-        }
+    socket.on('deleteProduct', async id => {
+        await productManager.deleteProductById(id);
+        socketServer.emit('productDeleted', id);
     })
 })
