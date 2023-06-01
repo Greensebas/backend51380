@@ -1,12 +1,12 @@
-import { ProductManager } from "../services/ProductManager.js";
+import { ProductService } from "../services/product.service.js";
 
-const productManager = new ProductManager('./db/products.json');
+const productService = new ProductService;
 
 // GET /api/products
 const getProductsController = async (req, res) => {
     try {
         let limit = +req.query.limit;
-        const allProducts = await productManager.getProducts();
+        const allProducts = await productService.getProducts();
         let nProducts = allProducts.slice(0, limit);
     
         return (!limit) ? res.status(200).json({ success: true, result: allProducts }) : res.status(200).json({ success: true, result: nProducts })
@@ -20,7 +20,7 @@ const getProductsController = async (req, res) => {
 const getProductByIdController = async (req, res) => {
     try {
         let pid = req.params.pid;
-        let product = await productManager.getProductById(+pid);
+        let product = await productService.getProductById(pid);
 
         return (!product) ? res.status(404).json(`product with id ${pid} do not exists`) : res.status(200).json(product)
     }
@@ -33,7 +33,7 @@ const getProductByIdController = async (req, res) => {
 const addProductController = async (req, res) => {
     try {
         let prod = req.body;
-        let classResponse = await productManager.addProduct(prod);
+        let classResponse = await productService.addProduct(prod);
 
         if(classResponse === 'Body format error'){
             return res.status(400).json( {success: false, result: `Wrong body format. The product must be contain 'title', 'description', 'price', 'status', 'category', 'code' and 'stock`});
@@ -55,7 +55,7 @@ const addProductController = async (req, res) => {
 const deleteProductByIdController = async (req, res) => {
     try {
         let pid = req.params.pid;
-        let deletedProduct = await productManager.deleteProductById(+pid);
+        let deletedProduct = await productService.deleteProductById(pid);
 
         return (!deletedProduct) ? res.status(404).json({success: false, result: `product with id ${pid} do not exists`}) : res.status(200).json( {success: true, result: deletedProduct} )
     }
@@ -69,7 +69,7 @@ const updateProductController = async (req, res) => {
     try {
         let prod = req.body;
         let pid = req.params.pid;
-        let updatedProduct = await productManager.updateProduct(+pid, prod);
+        let updatedProduct = await productService.updateProduct(pid, prod);
 
         if(updatedProduct === 'ID error'){
             return res.status(400).json( {success: false, result: `Product with id: '${pid}' not found`} )
@@ -94,5 +94,5 @@ export {
     addProductController,
     deleteProductByIdController,
     updateProductController,
-    productManager,
+    productService,
 }
