@@ -9,7 +9,7 @@ export class ProductService {
     }
 
     validateId(id) {
-        if(productIndex === -1) {
+        if(!id) {
         return `ID error`
         };
     }
