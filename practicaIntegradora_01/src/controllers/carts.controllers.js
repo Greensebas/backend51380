@@ -1,11 +1,11 @@
-import { CartManager } from "../services/CartManager.js";
+import { CartService } from "../services/cart.service.js";
 
-const cartManager = new CartManager('./db/carts.json');
+const cartService = new CartService
 
 // POST /api/carts
 const saveCartController = async (req, res) => {
     try{
-        let classResponse = await cartManager.saveCart();
+        let classResponse = await cartService.saveCart();
         return res.status(200).json( {success: true, result: classResponse} )
     }
     catch(error) {
@@ -17,7 +17,7 @@ const saveCartController = async (req, res) => {
 const getCartByIdController = async (req, res) => {
     try{
         let cid = req.params.cid
-        let cart = await cartManager.getCartById(cid);
+        let cart = await cartService.getCartById(cid);
         return (!cart) ? res.status(404).json({ success: false, result: `Cart with id ${cid} do not exists`}) : res.status(200).json( {success: true, result: cart.products} )
     }
     catch(error) {
@@ -30,9 +30,7 @@ const addToCartController = async (req, res) => {
     let cid = req.params.cid;
     let pid = req.params.pid;
     try {
-        let cart = await cartManager.addToCart(cid, pid);
-
-
+        let cart = await cartService.addToCart(cid, pid);
 
         return (!cart) ? res.status(404).json({ success: false, result: `Cart with id ${cid} do not exists`}) : res.status(200).json( {success: true, result: cart} );
     }
@@ -50,7 +48,7 @@ const removeToCartController = async (req, res) => {
     let cid = req.params.cid;
     let pid = req.params.pid;
     try {
-        let cart = await cartManager.removeToCart(cid, pid);
+        let cart = await cartService.removeToCart(cid, pid);
 
         return res.status(200).json( {success: true, result: cart} );
     }
