@@ -32,7 +32,7 @@ const addToCartController = async (req, res) => {
     try {
         let cart = await cartService.addToCart(cid, pid);
 
-        return (!cart) ? res.status(404).json({ success: false, result: `Cart with id ${cid} do not exists`}) : res.status(200).json( {success: true, result: cart} );
+        return res.status(200).json( {success: true, result: cart} );
     }
     catch(error) {
         if(error.message === 'CID error'){
