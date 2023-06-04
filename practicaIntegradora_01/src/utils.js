@@ -24,13 +24,16 @@ export const __dirname = path.dirname(__filename);
 
 // --------------- MONGOOSE ---------------
 import { connect } from 'mongoose';
+import dotenv from 'dotenv';
+
+dotenv.config();
+const mongoKey = process.env.DB_PASSWORD
 
 export async function connectMongo() {
   try {
     await connect(
       /* PONER TU STRING ENTERO ACA */
-      'mongodb+srv://greensebas:coder123house456@cluster0.9omke6v.mongodb.net/backend?retryWrites=true&w=majority'
-      //'mongodb+srv://greensebas:coder123house456@cluster0.9omke6v.mongodb.net/backend?'
+      `mongodb+srv://greensebas:${mongoKey}@cluster0.9omke6v.mongodb.net/backend?retryWrites=true&w=majority`
     );
     console.log('plug to mongo!');
   } catch (e) {
@@ -47,6 +50,7 @@ export async function connectMongo() {
 import {Server} from 'socket.io';
 import {productService} from './controllers/products.controllers.js';
 import { MsgsModel } from "./DAO/models/msgs.model.js";
+import { env } from "process";
 
 export function connectSocket(httpServer) {
 
