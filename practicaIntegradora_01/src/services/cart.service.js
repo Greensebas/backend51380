@@ -56,7 +56,7 @@ export class CartService {
         }
     };
 
-    async removeToCart( cid, pid ) {
+    async removeFromCart( cid, pid ) {
         try {
             let cart = await CartModel.findOne({ _id: cid, 'products.product': pid},);
             let productObj = cart.products.find((item) => item.product.equals(pid));

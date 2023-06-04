@@ -44,11 +44,11 @@ const addToCartController = async (req, res) => {
 };
 
 // DELETE /api/carts/:cid/product/:pid 
-const removeToCartController = async (req, res) => {
+const removeFromCartController = async (req, res) => {
     let cid = req.params.cid;
     let pid = req.params.pid;
     try {
-        let cart = await cartService.removeToCart(cid, pid);
+        let cart = await cartService.removeFromCart(cid, pid);
 
         return res.status(200).json( {success: true, result: cart} );
     }
@@ -69,5 +69,5 @@ export {
     saveCartController,
     getCartByIdController,
     addToCartController,
-    removeToCartController,
+    removeFromCartController,
 }
