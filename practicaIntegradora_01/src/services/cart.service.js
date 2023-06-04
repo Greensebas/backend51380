@@ -11,7 +11,7 @@ export class CartService {
         catch (error) {
             throw new Error(error.message);
         }
-    }
+    };
 
     async saveCart() {
         try {
@@ -21,7 +21,7 @@ export class CartService {
         catch (error) {
             throw new Error(error.message);
         }
-    }
+    };
 
     async getCartById( id ) {
         try {
@@ -31,7 +31,7 @@ export class CartService {
         catch (error) {
             throw new Error(error.message);
         }
-    }
+    };
 
     async addToCart( cid, pid ) {
         try {
@@ -54,27 +54,27 @@ export class CartService {
         catch (error) {
             throw new Error(error.message);
         }
-    }
+    };
 
     async removeToCart( cid, pid ) {
         try {
-            // let prodInCart = await CartModel.findOne(
-            //     { _id: cid, 'products.product': pid},
-            // );
+            let cart = await CartModel.findOne({ _id: cid, 'products.product': pid},);
+            let productObj = cart.products.find((item) => item.product.equals(pid));
 
-            // console.log(prodInCart)
-            let res = await CartModel.findOneAndUpdate(
+            let res;
+
+            if(productObj.quantity === 1) {
+                res = await CartModel.findOneAndUpdate(
+                    { _id: cid },
+                    { $pull: { products: { product: pid } } },
+                    { new: true }
+                );
+            } else {
+                res = await CartModel.findOneAndUpdate(
                 { _id: cid, 'products.product': pid},
                 { $inc: { 'products.$.quantity': -1 } },
                 { new: true}
             );
-            
-            if(!res) {
-                res = await CartModel.findOneAndUpdate(
-                    { _id: cid },
-                    { $pull: { products: { product: pid, quantity: 0 } } },
-                    { new: true }
-                );
             }
 
             return res;
@@ -82,7 +82,7 @@ export class CartService {
         catch (error) {
             throw new Error(error.message);
         }
-    }
+    };
 
 
 }
