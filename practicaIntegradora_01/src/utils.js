@@ -46,6 +46,7 @@ export async function connectMongo() {
 // --------------- SOCKET ---------------
 import {Server} from 'socket.io';
 import {productService} from './controllers/products.controllers.js';
+import { MsgsModel } from "./DAO/models/msgs.model.js";
 
 export function connectSocket(httpServer) {
 
@@ -62,6 +63,12 @@ socketServer.on('connection', (socket) => {
     socket.on('deleteProduct', async id => {
         await productService.deleteProductById(id);
         socketServer.emit('productDeleted', id);
-    })
+    });
+
+    socket.on('msg_front_to_back', async (msg) => {
+      const msgCreated = await MsgsModel.create(msg);
+      const msgs = await MsgsModel.find({});
+      socketServer.emit('msg_back_to_front', msgs);
+    });
 })
 }

@@ -2,7 +2,7 @@
 import { Schema, model } from "mongoose";
 
 const msgSchema = new Schema({
-    email: { type: String, required: true, max: 100, unique: true },
+    email: { type: String, required: true, max: 100 },
     message: { type: String, required: true, max: 300 },
 });
 

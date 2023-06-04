@@ -1,19 +1,19 @@
 import express from 'express';
 import { productService } from '../controllers/products.controllers.js';
 
-const viewsRouter = express.Router();
+const router = express.Router();
 
-viewsRouter.get('/', async (req, res) => {
+router.get('/', async (req, res) => {
     const products = await productService .getProducts()
     res.render('home', {products})
 })
 
 
-viewsRouter.get('/realTimeProducts', async (req, res) => {
+router.get('/realTimeProducts', async (req, res) => {
     const products = await productService.getProducts()
     res.render('realTimeProducts', {products})
 })
 
 
 
-export default viewsRouter;
+export default router;

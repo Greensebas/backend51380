@@ -1,11 +1,11 @@
 import express from 'express';
-import apiRoutes from './routes/app.routes.js';
+import routes from './routes/app.routes.js';
 
 import { __dirname, connectMongo, connectSocket } from './utils.js';
 import path from 'path';
 import handebars from 'express-handlebars';
 
-import viewsRouter from './routes/views.routes.js';
+
 
 
 const PORT = process.env.PORT || 8080;
@@ -25,8 +25,8 @@ app.set('views', path.join(__dirname, 'views'));
 
 
 // Routes
-app.use('/api', apiRoutes);
-app.use('/', viewsRouter);
+app.use('/api', routes);
+app.use('/', routes);
 
 
 // ---- || ----
