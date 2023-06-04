@@ -1,7 +1,15 @@
-<h3>Welcome to Chat-Box</h3>
+    <section class="chat-box">
 
-<input id="chat-box" name="chatbox" type="text" value="" />
-<div id="div-msgs" style="border: 1px solid black;">Loading... msgs</div>
+        <h3 class="title">Welcome to chat-box</h3>
+
+        <div class="msg-container">
+            <div id="div-msgs"></div>
+            <textarea id="chat-box" class="chat-input" name="chatbox" type="text" value="" placeholder="Escriba aquí su mensaje"></textarea>
+        </div>
+
+    </section>
+
+
 <script src="/socket.io/socket.io.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="/js/index.js"></script>

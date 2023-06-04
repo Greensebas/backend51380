@@ -40,9 +40,9 @@ socket.on('msg_back_to_front', (msgs) => {
   console.log(msgs);
   let msgsFormateados = '';
   msgs.forEach((msg) => {
-    msgsFormateados += "<div style='border: 1px solid red;'>";
-    msgsFormateados += '<p>' + msg.email + '</p>';
-    msgsFormateados += '<p>' + msg.message + '</p>';
+    msgsFormateados += '<div class="msg-box">';
+    msgsFormateados += '<p class="name">' + msg.email + '</p>';
+    msgsFormateados += '<p class="msg">' + msg.message + '</p>';
     msgsFormateados += '</div>';
   });
   const divMsgs = document.getElementById('div-msgs');
