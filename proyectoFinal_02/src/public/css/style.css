@@ -1,0 +1,80 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Montserrat", sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: rgba(0, 0, 0, 0.854);
+}
+
+.title {
+    margin: 20px;
+    text-align: center;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.55);
+    width: 85%;
+    font-size: 35px;
+    color: white;
+}
+
+.chat-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.msg-container {
+    min-height: 70vh;
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px;
+    border-radius: 20px;
+
+    background-color: rgba(0, 0, 0, 0.233);
+}
+
+.msg-box {
+    width: 500px;
+    margin: 5px;
+    border-radius: 20px 20px 20px 0;
+    padding: 15px;
+    text-align: justify;
+    background-color: rgba(0, 255, 170, 0.646);
+}
+
+.name {
+    font-size: 18px;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    margin-bottom: 5px;
+}
+
+.msg {
+    color: white;
+}
+
+.chat-input {
+    font-size: 15px;
+    margin-top: 30px;
+    width: 500px;
+    height: 50px;
+    padding: 15px;
+    background-color: rgba(255, 255, 255, 0.831);
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+    resize: none;
+}
+
+.chat-input:focus {
+    outline: none;
+}
+
+.chat-input::placeholder {
+    color: rgb(37, 37, 37);
+    font-size: 15px;
+}
