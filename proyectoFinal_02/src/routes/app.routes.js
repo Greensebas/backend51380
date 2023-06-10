@@ -8,9 +8,9 @@ import chatRoutes from './chat.routes.js';
 
 const router = express.Router();
 
-router.use('/products', productsRoutes);
-router.use('/carts', cartsRoutes);
-// router.use('/views', viewsRoutes);
+router.use('/api/products', productsRoutes);
+router.use('/api/carts', cartsRoutes);
+router.use('/views', viewsRoutes);
 router.use('/chat', chatRoutes);
 
 

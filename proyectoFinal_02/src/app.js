@@ -25,7 +25,6 @@ app.set('views', path.join(__dirname, 'views'));
 
 
 // Routes
-app.use('/api', routes);
 app.use('/', routes);
 
 

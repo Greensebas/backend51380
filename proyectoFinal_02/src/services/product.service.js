@@ -15,15 +15,47 @@ export class ProductService {
     }
 
 
-    async getProducts() {
+    // async getProducts() {
+    //     try {
+    //         const products = await ProductsModel.find({});
+    //         return products
+    //     }
+    //     catch (error) {
+    //         throw new Error(error.message);
+    //     }
+    // };
+
+
+    async getProducts(query, limit, page, sort, url) {
         try {
-            const products = await ProductsModel.find({});
-            return products
+            const res = await ProductsModel.paginate(query, { limit: limit || 2, page: page || 1, lean: true, sort: sort } );
+            const { docs, ...rest } = res;
+            const products = docs;
+            let pagination = rest;
+
+            url = `http://localhost:8080/api/products${url}`
+            const urlObject = new URL(url)
+            const searchParams = new URLSearchParams(urlObject.search);
+            searchParams.set('page', pagination.nextPage)
+            console.log(searchParams)
+
+            // pagination.prevLink = pagination.hasPrevPage ? `/api/products${url}` : null;
+            // pagination.nextLink = pagination.hasNextPage ? `/api/products${url}` : null;
+            // console.log(pagination)
+
+
+            return {products, pagination};
         }
         catch (error) {
             throw new Error(error.message);
         }
-    }
+    };
+
+
+
+
+
+
 
     async addProduct(prod) {
         try {
@@ -35,7 +67,7 @@ export class ProductService {
         catch (error) {
             throw new Error(error.message);
         }
-    }
+    };
 
     async getProductById(id) {
         try {
@@ -47,7 +79,7 @@ export class ProductService {
         catch (error) {
             throw new Error(error.message);
         }
-    }
+    };
 
     async deleteProductById(id) {
         try {
@@ -59,7 +91,7 @@ export class ProductService {
         catch (error) {
             throw new Error(error.message);
         }
-    }
+    };
 
     async updateProduct(id, prod) {
         try {
@@ -72,7 +104,7 @@ export class ProductService {
         catch (error) {
             throw new Error(error.message);
         }
-    }
+    };
 
 
 }
