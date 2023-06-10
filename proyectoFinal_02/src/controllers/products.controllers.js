@@ -19,14 +19,14 @@ const productService = new ProductService;
 
 const getProductsController = async (req, res) => {
     try {
-        const url = req.url
+        const currentUrl = req.originalUrl
         let { page, limit, query, sort } = req.query;
         sort = sort ? {price: sort} : null;
         query = query ? {category: {$in: [query] }, stock: { $gt: 0} } : null
 
 
 
-        const queryResult = await productService.getProducts(query, limit, page, sort, url)
+        const queryResult = await productService.getProducts(query, limit, page, sort, currentUrl)
 
         return res.status(200).json({ 
             success: true, 

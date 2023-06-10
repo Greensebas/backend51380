@@ -1,4 +1,5 @@
 import { ProductsModel } from '../DAO/models/product.model.js';
+import url from 'url'
 
 export class ProductService {
 
@@ -14,35 +15,33 @@ export class ProductService {
         };
     }
 
-
-    // async getProducts() {
-    //     try {
-    //         const products = await ProductsModel.find({});
-    //         return products
-    //     }
-    //     catch (error) {
-    //         throw new Error(error.message);
-    //     }
-    // };
-
-
-    async getProducts(query, limit, page, sort, url) {
+    
+    async getProducts(query, limit, page, sort, currentUrl) {
         try {
             const res = await ProductsModel.paginate(query, { limit: limit || 2, page: page || 1, lean: true, sort: sort } );
             const { docs, ...rest } = res;
             const products = docs;
             let pagination = rest;
 
-            url = `http://localhost:8080/api/products${url}`
-            const urlObject = new URL(url)
-            const searchParams = new URLSearchParams(urlObject.search);
-            searchParams.set('page', pagination.nextPage)
-            console.log(searchParams)
+            if(pagination.hasNextPage) {
+                const parsedUrl = url.parse(currentUrl, true);
+                parsedUrl.query.page = pagination.nextPage;
+                let nextLink = url.format({
+                    pathname: parsedUrl.pathname,
+                    query: parsedUrl.query
+                });
+                pagination.nextLink = `${nextLink}`;
+            };
 
-            // pagination.prevLink = pagination.hasPrevPage ? `/api/products${url}` : null;
-            // pagination.nextLink = pagination.hasNextPage ? `/api/products${url}` : null;
-            // console.log(pagination)
-
+            if(pagination.hasPrevPage) {
+                const parsedUrl = url.parse(currentUrl, true);
+                parsedUrl.query.page = pagination.prevPage;
+                let prevLink = url.format({
+                    pathname: parsedUrl.pathname,
+                    query: parsedUrl.query
+                });
+                pagination.prevLink = `${prevLink}`;
+            };
 
             return {products, pagination};
         }
@@ -50,11 +49,6 @@ export class ProductService {
             throw new Error(error.message);
         }
     };
-
-
-
-
-
 
 
     async addProduct(prod) {
