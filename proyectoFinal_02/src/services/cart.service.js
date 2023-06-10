@@ -23,9 +23,9 @@ export class CartService {
         }
     };
 
-    async getCartById( id ) {
+    async getCartById( cid ) {
         try {
-            let cart = await CartModel.findOne({ _id: id });
+            let cart = await CartModel.findOne({ _id: cid });
             return cart;
         }
         catch (error) {
@@ -56,6 +56,21 @@ export class CartService {
         }
     };
 
+    async addQtyToCart( cid, pid, qty ) {
+        try {
+            let res = await CartModel.findOneAndUpdate(
+                { _id: cid, 'products.product': pid},
+                { $inc: { 'products.$.quantity': +qty } },
+                { new: true}
+            );
+            
+            return res;
+        }
+        catch (error) {
+            throw new Error(error.message);
+        }
+    };
+
     async removeFromCart( cid, pid ) {
         try {
             let cart = await CartModel.findOne({ _id: cid, 'products.product': pid},);
@@ -78,6 +93,20 @@ export class CartService {
             }
 
             return res;
+        }
+        catch (error) {
+            throw new Error(error.message);
+        }
+    };
+
+    async emptyCartById( cid ) {
+        try {
+            let cart = await CartModel.findOneAndUpdate(
+                { _id: cid },
+                { products: [] },
+                { new: true }
+            );
+            return cart;
         }
         catch (error) {
             throw new Error(error.message);

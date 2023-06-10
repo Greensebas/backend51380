@@ -43,6 +43,25 @@ const addToCartController = async (req, res) => {
     }
 };
 
+
+// PUT /api/carts/:cid/product/:pid 
+const addQtyToCartController = async (req, res) => {
+    let cid = req.params.cid;
+    let pid = req.params.pid;
+    let qty = req.body.quantity;
+
+    console.log(qty)
+
+    try {
+        let cart = await cartService.addQtyToCart(cid, pid, qty);
+
+        return res.status(200).json( {success: true, result: cart} );
+    }
+    catch(error) {
+        res.status(500).json({ success: false, result: error.message });
+    }
+};
+
 // DELETE /api/carts/:cid/product/:pid 
 const removeFromCartController = async (req, res) => {
     let cid = req.params.cid;
@@ -63,11 +82,25 @@ const removeFromCartController = async (req, res) => {
 
         res.status(500).json({ success: false, result: error.message });
     }
-}
+};
+
+// DELETE /api/carts/:cid
+const emptyCartByIdController = async (req, res) => {
+    try{
+        let cid = req.params.cid
+        let cart = await cartService.emptyCartById(cid);
+        return (!cart) ? res.status(404).json({ success: false, result: `Cart with id ${cid} do not exists`}) : res.status(200).json( {success: true, result: cart.products} )
+    }
+    catch(error) {
+        res.status(500).json({ success: false, result: error.message });
+    }
+};
 
 export {
     saveCartController,
     getCartByIdController,
     addToCartController,
     removeFromCartController,
+    emptyCartByIdController,
+    addQtyToCartController,
 }
