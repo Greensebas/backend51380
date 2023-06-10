@@ -58,13 +58,30 @@ export class CartService {
 
     async addQtyToCart( cid, pid, qty ) {
         try {
-            let res = await CartModel.findOneAndUpdate(
-                { _id: cid, 'products.product': pid},
-                { $inc: { 'products.$.quantity': +qty } },
-                { new: true}
-            );
+            const cart = await CartModel.findOne({ _id: cid });
+            const productInCart = cart.products.find((item) => item.product._id.toString() === pid);
+
+            let res;
+            if ((productInCart.quantity + qty) >= 1) {
+                res = await CartModel.findOneAndUpdate(
+                    { _id: cid, 'products.product': pid},
+                    { $inc: { 'products.$.quantity': +qty } },
+                    { new: true}
+                );
+                return res;
+            } 
             
-            return res;
+            if ((productInCart.quantity + qty) === 0) {
+                res = await CartModel.findOneAndUpdate(
+                    { _id: cid },
+                    { $pull: { products: { product: pid } } },
+                    { new: true }
+                );
+                return res;
+            } else {
+                return `I'm sorry, we can't subtract that amount, there are only ${productInCart.quantity} units of this products left in the cart`
+            }
+            
         }
         catch (error) {
             throw new Error(error.message);
@@ -73,24 +90,11 @@ export class CartService {
 
     async removeFromCart( cid, pid ) {
         try {
-            let cart = await CartModel.findOne({ _id: cid, 'products.product': pid},);
-            let productObj = cart.products.find((item) => item.product.equals(pid));
-
-            let res;
-
-            if(productObj.quantity === 1) {
-                res = await CartModel.findOneAndUpdate(
+            let res = await CartModel.findOneAndUpdate(
                     { _id: cid },
                     { $pull: { products: { product: pid } } },
                     { new: true }
-                );
-            } else {
-                res = await CartModel.findOneAndUpdate(
-                { _id: cid, 'products.product': pid},
-                { $inc: { 'products.$.quantity': -1 } },
-                { new: true}
             );
-            }
 
             return res;
         }
@@ -104,6 +108,21 @@ export class CartService {
             let cart = await CartModel.findOneAndUpdate(
                 { _id: cid },
                 { products: [] },
+                { new: true }
+            );
+            return cart;
+        }
+        catch (error) {
+            throw new Error(error.message);
+        }
+    };
+
+
+    async overwriteCartById( cid, prods ) {
+        try {
+            let cart = await CartModel.findOneAndUpdate(
+                { _id: cid },
+                { products: prods },
                 { new: true }
             );
             return cart;
