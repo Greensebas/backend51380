@@ -15,7 +15,7 @@ export class ProductService {
         };
     }
 
-    
+
     async getProducts(query, limit, page, sort, currentUrl) {
         try {
             const res = await ProductsModel.paginate(query, { limit: limit || 2, page: page || 1, lean: true, sort: sort } );
@@ -31,6 +31,8 @@ export class ProductService {
                     query: parsedUrl.query
                 });
                 pagination.nextLink = `${nextLink}`;
+            } else {
+                pagination.nextLink = null;
             };
 
             if(pagination.hasPrevPage) {
@@ -41,6 +43,8 @@ export class ProductService {
                     query: parsedUrl.query
                 });
                 pagination.prevLink = `${prevLink}`;
+            } else {
+                pagination.prevLink = null;
             };
 
             return {products, pagination};
