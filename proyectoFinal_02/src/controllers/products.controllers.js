@@ -24,8 +24,6 @@ const getProductsController = async (req, res) => {
         sort = sort ? {price: sort} : null;
         query = query ? {category: {$in: [query] }, stock: { $gt: 0} } : null
 
-
-
         const queryResult = await productService.getProducts(query, limit, page, sort, currentUrl)
 
         return res.status(200).json({ 
