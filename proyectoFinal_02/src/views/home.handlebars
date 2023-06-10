@@ -51,13 +51,13 @@
 </ul>
 
   {{#if pagination.hasPrevPage}}
-    <a href="/api/views?page={{pagination.prevPage}}">⬅️{{pagination.prevPage}}</a>
+    <a href="{{pagination.prevLink}}">⬅️{{pagination.prevPage}}</a>
   {{/if}}
 
   <a >{{pagination.page}}</a>
   
   {{#if pagination.hasNextPage}}
-    <a href="/api/views?page={{pagination.nextPage}}">➡️{{pagination.nextPage}}</a>
+    <a href="{{pagination.nextLink}}">➡️{{pagination.nextPage}}</a>
   {{/if}}
 
   <br />
@@ -71,3 +71,5 @@
   <p>hasNextPage: {{pagination.hasNextPage}}</p>
   <p>prevPage: {{pagination.prevPage}}</p>
   <p>nextPage: {{pagination.nextPage}}</p>
+  <p>nextLink: {{pagination.nextLink}}</p>
+  <p>prevLink: {{pagination.prevLink}}</p>

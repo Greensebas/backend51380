@@ -13,6 +13,8 @@ router.get('/', async (req, res) => {
 
         const queryResult = await productService.getProducts(query, limit, page, sort, currentUrl)
 
+        console.log(queryResult.pagination);
+        
         return res.status(200).render('home', {
             success: true, 
             products: queryResult.products,
