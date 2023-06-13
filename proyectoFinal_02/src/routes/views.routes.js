@@ -7,9 +7,11 @@ const router = express.Router();
 router.get('/', async (req, res) => {
     try {
         const currentUrl = req.originalUrl
-        let { page, limit, query, sort } = req.query;
+        let { page, limit, sort, category, stock } = req.query;
         sort = sort ? {price: sort} : null;
-        query = query ? {category: {$in: [query] }, stock: { $gt: 0} } : null
+        let query = {}
+        category ? query.category = category : null;
+        stock ? query.stock = { $gt: +stock} : null;
 
         const queryResult = await productService.getProducts(query, limit, page, sort, currentUrl)
 

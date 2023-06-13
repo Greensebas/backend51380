@@ -35,10 +35,6 @@ const addToCartController = async (req, res) => {
         return res.status(200).json( {success: true, result: cart} );
     }
     catch(error) {
-        if(error.message === 'CID error'){
-            return res.status(400).json( {success: false, result: `Cart with id: '${cid}' not found`} )
-        }
-
         res.status(500).json({ success: false, result: error.message });
     }
 };
@@ -70,14 +66,6 @@ const removeFromCartController = async (req, res) => {
         return res.status(200).json( {success: true, result: cart} );
     }
     catch(error) {
-        if(error.message === 'CID error'){
-            return res.status(400).json( {success: false, result: `Cart with id: '${cid}' not found CID`} )
-        }
-
-        if(error.message === 'PID error'){
-            return res.status(404).json( {success: false, result: `Product with id: '${pid}' not found`} )
-        }
-
         res.status(500).json({ success: false, result: error.message });
     }
 };
