@@ -1,50 +1,45 @@
-//FRONT
-const socket = io();
-let userEmail = '';
+const addToCartButtons = document.querySelectorAll(".add-to-cart-button");
+const cartId = localStorage.getItem("cartId");
 
-async function reqEmail() {
-  const { value: name } = await Swal.fire({
-    title: 'Enter your mail',
-    input: 'text',
-    inputLabel: 'Your mail',
-    inputValue: '',
-    showCancelButton: false,
-    inputValidator: (value) => {
-      if (!value) {
-        return 'You need to write your mail!';
-      }
-    },
-  });
-
-  userEmail = name;
-}
-
-reqEmail();
-
-//FRONT EMITE
-
-const chatBox = document.getElementById('chat-box');
-
-chatBox.addEventListener('keyup', ({ key }) => {
-  if (key == 'Enter') {
-    socket.emit('msg_front_to_back', {
-      email: userEmail,
-      message: chatBox.value,
+addToCartButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+        const productId = button.id;
+        addToCart(cartId, productId)
     });
-    chatBox.value = '';
-  }
 });
 
-//FRONT RECIBE
-socket.on('msg_back_to_front', (msgs) => {
-  console.log(msgs);
-  let msgsFormateados = '';
-  msgs.forEach((msg) => {
-    msgsFormateados += '<div class="msg-box">';
-    msgsFormateados += '<p class="name">' + msg.email + '</p>';
-    msgsFormateados += '<p class="msg">' + msg.message + '</p>';
-    msgsFormateados += '</div>';
-  });
-  const divMsgs = document.getElementById('div-msgs');
-  divMsgs.innerHTML = msgsFormateados;
-});
+const addToCart = async (cartId, productId) => {
+    if (cartId != undefined) {
+        await fetch(`/api/carts/${cartId}/product/${productId}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log("Added to cart:", data);
+            })
+            .catch((error) => {
+                console.error("Error: ", error);
+            });
+    } else {
+        await fetch(`/api/carts`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data)
+                const newCartId = data.result._id;
+                localStorage.setItem('cartId', newCartId);
+                console.log(`New cart created whith ID ${newCartId}`);
+            })
+            .catch((error) => {
+                console.error("Error: ", error);
+            });
+
+    }
+};

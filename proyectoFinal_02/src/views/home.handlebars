@@ -1,75 +1,56 @@
-<div class="container">
-  <form id="product-form">
-    <div>
-      <label for="title">Title:</label>
-      <input type="text" name="title" id="title">
-      <label for="description">Description:</label>
-      <input type="text" name="description" id="description">
-    </div>
+<div class="flex-container prod-container">
+  <h2>Productos</h2>
+</div>
 
-    <div>    
-      <label for="price">Price:</label>
-      <input type="number" name="price" id="price">
-      <label for="status">Status:</label>
-      <input type="hiden" name="status" id="status" value=true>
+{{!-- CARDS --}}
+<div class="product-cards">
+  {{#each products}}
+    <div class="product-card" id="{{this.id}}">
+      <h2 class="product-name">{{title}}</h2>
+      <p class="product-description">{{description}}</p>
+      <p class="product-price">${{price}}</p>
+      <p class="product-stock">Stock: {{stock}} unidades</p>
+      <button class="add-to-cart-button" id="{{this._id}}">Add to Cart</button>
     </div>
+  {{/each}}
+</div>
 
-    <div>
-      <label for="category">Category:</label>
-      <input type="text" name="category" id="category">
-      <label for="thumbnail">Thumbnail:</label>
-      <input type="text" name="thumbnail" id="thumbnail">
-    </div>
+{{!-- PAGES --}}
+<div class="flex-container pages-container">
+  {{#if pagination.hasPrevPage}}
+    <a href="{{pagination.prevLink}}" class="pages">
+      <span>
+        {{pagination.prevPage}}
+      </span>
+    </a>
+  {{/if}}
 
-    <div>
-      <label for="code">Code:</label>
-      <input type="text" name="code" id="code">
-      <label for="stock">Stock:</label>
-      <input type="number" name="stock" id="stock">
-    </div>
+  <a class="pages actual">
+    <span>
+      {{pagination.page}}
+    </span>
+  </a>
 
-    <button class="submit_btn" type="submit">Enviar</button>
-  </form>
+  {{#if pagination.hasNextPage}}
+    <a href="{{pagination.nextLink}}" class="pages">
+      <span>
+        {{pagination.nextPage}}
+      </span>
+    </a>
+  {{/if}}
 </div>
 
 
-
-<ul class="products_list" id="products_list">
-  {{#each products}}
-  <li class="card" id="{{this.id}}">
-    <div>
-      <h2>{{title}}</h2>
-      <h4>{{description}}</h4>
-      <p>Price: <span>${{price}}</span> </p>
-      <p>Code: <span>{{code}}</span> </p>
-      <p>Stock: <span>{{stock}}</span></p>
-      <p>Category: <span>{{category}}</span></p>
-      <button class="delete_btn" onclick="deleteProduct({{this.id}})">Delete</button>
-    </div>
-  </li>
-  {{/each}}
-</ul>
-
-  {{#if pagination.hasPrevPage}}
-    <a href="{{pagination.prevLink}}">⬅️{{pagination.prevPage}}</a>
-  {{/if}}
-
-  <a >{{pagination.page}}</a>
-  
-  {{#if pagination.hasNextPage}}
-    <a href="{{pagination.nextLink}}">➡️{{pagination.nextPage}}</a>
-  {{/if}}
-
-  <br />
-  <br />
-
-  <p>totalDocs: {{pagination.totalDocs}}</p>
-  <p>limit: {{pagination.limit}}</p>
-  <p>totalPages: {{pagination.totalPages}}</p>
-  <p>pagingCounter: {{pagination.pagingCounter}}</p>
-  <p>hasPrevPage: {{pagination.hasPrevPage}}</p>
-  <p>hasNextPage: {{pagination.hasNextPage}}</p>
-  <p>prevPage: {{pagination.prevPage}}</p>
-  <p>nextPage: {{pagination.nextPage}}</p>
-  <p>nextLink: {{pagination.nextLink}}</p>
-  <p>prevLink: {{pagination.prevLink}}</p>
+{{!-- PAGINATION --}}
+<div class="pagination">
+  <p>totalDocs: <span>{{pagination.totalDocs}}</span></p>
+  <p>limit: <span>{{pagination.limit}}</span></p>
+  <p>totalPages: <span>{{pagination.totalPages}}</span></p>
+  <p>pagingCounter: <span>{{pagination.pagingCounter}}</span></p>
+  <p>hasPrevPage: <span>{{pagination.hasPrevPage}}</span></p>
+  <p>hasNextPage: <span>{{pagination.hasNextPage}}</span></p>
+  <p>prevPage: <span>{{pagination.prevPage}}</span></p>
+  <p>nextPage: <span>{{pagination.nextPage}}</span></p>
+  <p>nextLink: <span>{{pagination.nextLink}}</span></p>
+  <p>prevLink: <span>{{pagination.prevLink}}</span></p>
+</div>

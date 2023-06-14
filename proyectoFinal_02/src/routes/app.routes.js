@@ -10,7 +10,7 @@ const router = express.Router();
 
 router.use('/api/products', productsRoutes);
 router.use('/api/carts', cartsRoutes);
-router.use('/views', viewsRoutes);
+router.use('/views/products', viewsRoutes);
 router.use('/chat', chatRoutes);
 
 

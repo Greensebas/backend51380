@@ -2,21 +2,6 @@ import { ProductService } from "../services/product.service.js";
 
 const productService = new ProductService;
 
-// GET /api/products
-// const getProductsController = async (req, res) => {
-//     try {
-//         let limit = +req.query.limit;
-//         const allProducts = await productService.getProducts();
-//         let nProducts = allProducts.slice(0, limit);
-    
-//         return (!limit) ? res.status(200).json({ success: true, result: allProducts }) : res.status(200).json({ success: true, result: nProducts })
-//     }
-//     catch(error) {
-//         res.status(500).json({ success: false, result: error.message });
-//     }
-// };
-
-
 const getProductsController = async (req, res) => {
     try {
         const currentUrl = req.originalUrl
