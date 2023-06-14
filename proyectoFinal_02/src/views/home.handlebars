@@ -10,7 +10,7 @@
       <p class="product-description">{{description}}</p>
       <p class="product-price">${{price}}</p>
       <p class="product-stock">Stock: {{stock}} unidades</p>
-      <button class="add-to-cart-button" id="{{this._id}}">Add to Cart</button>
+      <button class="add-to-cart-button" id="{{this._id}}" onclick="addToCart('{{this._id}}')">Add to Cart</button>
     </div>
   {{/each}}
 </div>
