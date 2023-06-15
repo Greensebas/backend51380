@@ -1,0 +1,14 @@
+<div class="flex-container prod-container">
+  <h2>Cart</h2>
+</div>
+
+{{!-- CARDS --}}
+<div class="product-cards">
+  {{#each cart}}
+    <div class="product-card" id="{{this.id}}">
+      <h2 class="product-name">{{title}}</h2>
+      <p class="product-price">${{price}}</p>
+      <p class="product-stock">Quantity: {{quantity}} unidades</p>
+    </div>
+  {{/each}}
+</div>

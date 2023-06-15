@@ -1,3 +1,5 @@
+alert('hola')
+
 const addToCartButtons = document.querySelectorAll(".add-to-cart-button");
 
 let cartId = localStorage.getItem("cartId") || null;

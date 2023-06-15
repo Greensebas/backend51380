@@ -104,4 +104,5 @@ export {
     emptyCartByIdController,
     addQtyToCartController,
     overwriteCartByIdController,
+    cartService,
 }
