@@ -1,13 +1,16 @@
 import express from 'express';
 import routes from './routes/app.routes.js';
-
+import session from 'express-session';
+import MongoStore from 'connect-mongo';
 import { __dirname, connectMongo, connectSocket } from './utils.js';
 import path from 'path';
 import handebars from 'express-handlebars';
+import dotenv from 'dotenv';
+import cookieParser from 'cookie-parser';
 
 
-
-
+dotenv.config();
+const mongoKey = process.env.DB_PASSWORD
 const PORT = process.env.PORT || 8080;
 const app = express();
 
@@ -22,6 +25,17 @@ app.use(express.static(path.join(__dirname, 'public')));  // Para aclarar que 'p
 app.engine('handlebars', handebars.engine());
 app.set('view engine', 'handlebars');
 app.set('views', path.join(__dirname, 'views'));
+
+// Sessions
+app.use(cookieParser());
+app.use(
+    session({
+      store: MongoStore.create({ mongoUrl: `mongodb+srv://greensebas:${mongoKey}@cluster0.9omke6v.mongodb.net/backend?retryWrites=true&w=majority`, ttl: 1000 }),
+      secret: 'secret',
+      resave: true,
+      saveUninitialized: true,
+    })
+  );
 
 
 // Routes
