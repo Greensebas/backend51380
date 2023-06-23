@@ -50,7 +50,7 @@ export async function connectMongo() {
 import {Server} from 'socket.io';
 import {productService} from './controllers/products.controllers.js';
 import { MsgsModel } from "./DAO/models/msgs.model.js";
-import { env } from "process";
+
 
 export function connectSocket(httpServer) {
 
@@ -75,4 +75,10 @@ socketServer.on('connection', (socket) => {
       socketServer.emit('msg_back_to_front', msgs);
     });
 })
-}
+};
+
+
+//---------------- BCRYPT ----------------------
+import bcrypt from 'bcrypt';
+export const createHash = (password) => bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+export const isValidPassword = (password, hashPassword) => bcrypt.compareSync(password, hashPassword);

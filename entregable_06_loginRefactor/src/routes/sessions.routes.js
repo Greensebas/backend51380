@@ -1,6 +1,7 @@
 import express from 'express';
 import { UserModel } from '../DAO/models/users.model.js';
 import { isUser, isAdmin } from '../middlewares/auth.js';
+import { createHash, isValidPassword } from '../utils.js';
 
 const router = express.Router();
 
@@ -53,7 +54,7 @@ router.post('/login', async (req, res) => {
 
         const user = await UserModel.findOne({ email: email });
 
-        if (user && user.pass == pass) {
+        if (user && isValidPassword(pass, user.pass) ) {
             req.session.email = email;
             if (user.isAdmin) {
                 req.session.isAdmin = true;
@@ -76,7 +77,7 @@ router.post('/register', async (req, res) => {
         return res.status(400).render('error', { error: 'wrong data' })
     }
     try {
-        await UserModel.create({ email, pass, firstName, lastName, isAdmin: false });
+        await UserModel.create({ email, pass: createHash(pass), firstName, lastName, isAdmin: false });
         req.session.email = email
         req.session.isAdmin = false
 
