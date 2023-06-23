@@ -7,6 +7,8 @@ import path from 'path';
 import handebars from 'express-handlebars';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
+import { iniPassport } from './config/passport.config.js';
+import passport from 'passport';
 
 
 dotenv.config();
@@ -37,6 +39,10 @@ app.use(
     })
   );
 
+// Passport
+iniPassport();
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Routes
 app.use('/', routes);

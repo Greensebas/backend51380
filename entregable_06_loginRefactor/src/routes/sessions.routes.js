@@ -2,6 +2,7 @@ import express from 'express';
 import { UserModel } from '../DAO/models/users.model.js';
 import { isUser, isAdmin } from '../middlewares/auth.js';
 import { createHash, isValidPassword } from '../utils.js';
+import passport from 'passport';
 
 const router = express.Router();
 
@@ -42,50 +43,32 @@ router.get('/logout', (req, res) => {
 
 router.get('/administration', isUser, isAdmin, (req, res) => {
     return res.send('Data only seen by admins')
-})
-
-router.post('/login', async (req, res) => {
-    try {
-        const { email, pass } = req.body;
-
-        if (!email || !pass) {
-            return res.status(400).render('error', { error: 'complete email and pass' });
-        }
-
-        const user = await UserModel.findOne({ email: email });
-
-        if (user && isValidPassword(pass, user.pass) ) {
-            req.session.email = email;
-            if (user.isAdmin) {
-                req.session.isAdmin = true;
-            } else {
-                req.session.isAdmin = false;
-            }
-            return res.redirect('/api/sessions/profile');
-        } else {
-            return res.status(401).render('error', { error: 'Wrong pass or email' });
-        }
-    }
-    catch (error) {
-        res.status(500).json({ success: false, result: error.message });
-    }
 });
 
-router.post('/register', async (req, res) => {
-    const { email, pass, firstName, lastName } = req.body
-    if (!email || !pass || !firstName || !lastName) {
-        return res.status(400).render('error', { error: 'wrong data' })
-    }
-    try {
-        await UserModel.create({ email, pass: createHash(pass), firstName, lastName, isAdmin: false });
-        req.session.email = email
-        req.session.isAdmin = false
+router.get('/failregister', (req, res) => {
+    return res.json({ error: 'fail to register' });
+});
 
-        return res.redirect('/api/sessions/profile')
-    } catch (error) {
-        console.log(error)
-        return res.status(400).render('error', { error: 'Cannot create user. Try with another mail' })
+router.get('/faillogin', async (req, res) => {
+    return res.json({ error: 'fail to login' });
+});
+
+router.post('/login', passport.authenticate('login', { failureRedirect: '/api/sessions/faillogin' }), async (req, res) => {
+    if (!req.user) {
+      return res.json({ error: 'invalid credentials' });
     }
-})
+    req.session.user = { _id: req.user._id, email: req.user.email, firstName: req.user.firstName, lastName: req.user.lastName, isAdmin: req.user.isAdmin };
+  
+    return res.json({ msg: 'ok', payload: req.user });
+  });
+
+router.post('/register', passport.authenticate('register', { failureRedirect: '/api/sessions/failregister' }), (req, res) => {
+    if (!req.user) {
+      return res.json({ error: 'something went wrong' });
+    }
+    req.session.user = { _id: req.user._id, email: req.user.email, firstName: req.user.firstName, lastName: req.user.lastName, isAdmin: req.user.isAdmin };
+  
+    return res.json({ msg: 'ok', payload: req.user });
+});
 
 export default router;
