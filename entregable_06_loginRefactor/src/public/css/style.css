@@ -188,3 +188,96 @@ body {
     font-weight: normal;
 }
 
+/* ------------- CART ----------- */
+.cart-tab-container {
+    margin-top: 20px;
+  }
+
+  .cart-prod-tab {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .cart-prod-name {
+    margin-right: 10px;
+    font-weight: bold;
+  }
+
+  .cart-prod-price,
+  .cart-prod-stock {
+    margin-right: 10px;
+  }
+
+  .delete-from-cart-button {
+    background-color: #f44336;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+
+  .delete-from-cart-button:hover {
+    background-color: #d32f2f;
+  }
+
+
+/* ------------- LOGIN - REGISTER ----------- */
+.form-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+}
+
+.title {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.form-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-input {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    width: 200px;
+}
+
+.form-submit {
+    padding: 10px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    width: 100px;
+}
+
+.form-submit:hover {
+    background-color: #45a049;
+}
+
+.redirect {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    color: #333;
+    text-decoration: none;
+}
+
+.redirect:hover {
+    text-decoration: underline;
+}

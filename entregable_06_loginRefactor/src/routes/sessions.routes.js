@@ -54,21 +54,31 @@ router.get('/faillogin', async (req, res) => {
 });
 
 router.post('/login', passport.authenticate('login', { failureRedirect: '/api/sessions/faillogin' }), async (req, res) => {
-    if (!req.user) {
-      return res.json({ error: 'invalid credentials' });
-    }
-    req.session.user = { _id: req.user._id, email: req.user.email, firstName: req.user.firstName, lastName: req.user.lastName, isAdmin: req.user.isAdmin };
-  
-    return res.json({ msg: 'ok', payload: req.user });
-  });
+    try {
+        if (!req.user) {
+            return res.json({ error: 'invalid credentials' });
+        }
+        req.session.user = { _id: req.user._id, email: req.user.email, firstName: req.user.firstName, lastName: req.user.lastName, isAdmin: req.user.isAdmin };
 
-router.post('/register', passport.authenticate('register', { failureRedirect: '/api/sessions/failregister' }), (req, res) => {
-    if (!req.user) {
-      return res.json({ error: 'something went wrong' });
+        return res.json({ msg: 'ok', payload: req.user });
     }
-    req.session.user = { _id: req.user._id, email: req.user.email, firstName: req.user.firstName, lastName: req.user.lastName, isAdmin: req.user.isAdmin };
-  
-    return res.json({ msg: 'ok', payload: req.user });
+    catch (error) {
+        res.status(500).json({ success: false, result: error.message });
+    }
+});
+
+router.post('/register', passport.authenticate('register', { failureRedirect: '/api/sessions/failregister' }), async (req, res) => {
+    try {
+        if (!req.user) {
+            return res.json({ error: 'something went wrong' });
+        }
+        req.session.user = { _id: req.user._id, email: req.user.email, firstName: req.user.firstName, lastName: req.user.lastName, isAdmin: req.user.isAdmin };
+
+        return res.json({ msg: 'ok', payload: req.user });
+    }
+    catch (error) {
+        res.status(500).json({ success: false, result: error.message });
+    }
 });
 
 export default router;
