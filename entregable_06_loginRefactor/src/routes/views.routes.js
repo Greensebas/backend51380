@@ -1,9 +1,26 @@
 import express from 'express';
-import { productService } from '../controllers/products.controllers.js';
-import { ProductsModel } from '../DAO/models/product.model.js';
 import { cartService } from '../controllers/carts.controllers.js';
+import { productService } from '../controllers/products.controllers.js';
 
 const router = express.Router();
+
+router.get('/', async (req, res) => {
+    try {
+        res.status(200).render('home');
+    }
+    catch(error) {
+        res.status(500).json({ success: false, result: error.message });
+    }
+});
+
+router.get('/login-github', async (req, res) => {
+    try {
+        res.status(200).render('login-github', { msg: 'caverniiiicola'});
+    }
+    catch(error) {
+        res.status(500).json({ success: false, result: error.message });
+    }
+});
 
 router.get('/products', async (req, res) => {
     try {
@@ -16,7 +33,7 @@ router.get('/products', async (req, res) => {
 
         const queryResult = await productService.getProducts(query, limit, page, sort, currentUrl)
 
-        return res.status(200).render('home', {
+        return res.status(200).render('products', {
             success: true, 
             products: queryResult.products,
             pagination: queryResult.pagination,
