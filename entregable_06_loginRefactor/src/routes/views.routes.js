@@ -2,6 +2,7 @@ import express from 'express';
 import { cartService } from '../controllers/carts.controllers.js';
 import { productService } from '../controllers/products.controllers.js';
 
+
 const router = express.Router();
 
 router.get('/', async (req, res) => {
@@ -15,7 +16,7 @@ router.get('/', async (req, res) => {
 
 router.get('/login-github', async (req, res) => {
     try {
-        res.status(200).render('login-github', { msg: 'caverniiiicola'});
+        res.status(200).render('login-github');
     }
     catch(error) {
         res.status(500).json({ success: false, result: error.message });

@@ -53,6 +53,22 @@ router.get('/faillogin', async (req, res) => {
     return res.json({ error: 'fail to login' });
 });
 
+// PASSPORT GITHUB
+router.get('/github', passport.authenticate('github', { scope: ['user:email'] }));
+
+router.get('/githubcallback', passport.authenticate('github', { failureRedirect: '/login' }), (req, res) => {
+  req.session.user = req.user;
+  // Successful authentication, redirect home.
+  res.redirect('/');
+});
+
+router.get('/show', (req, res) => {
+  return res.send(JSON.stringify(req.session));
+});
+
+
+
+
 router.post('/login', passport.authenticate('login', { failureRedirect: '/api/sessions/faillogin' }), async (req, res) => {
     try {
         if (!req.user) {
