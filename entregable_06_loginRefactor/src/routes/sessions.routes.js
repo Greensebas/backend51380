@@ -28,7 +28,7 @@ router.get('/register', async (req, res) => {
 });
 
 router.get('/profile', isUser, (req, res) => {
-    const user = { email: req.session.email, isAdmin: req.session.isAdmin }
+    const user = { email: req.session.user.email, isAdmin: req.session.user.isAdmin }
     return res.render('profile', { user })
 })
 
@@ -58,14 +58,12 @@ router.get('/github', passport.authenticate('github', { scope: ['user:email'] })
 
 router.get('/githubcallback', passport.authenticate('github', { failureRedirect: '/login' }), (req, res) => {
   req.session.user = req.user;
-  // Successful authentication, redirect home.
-  res.redirect('/');
+  res.redirect('/views');
 });
 
 router.get('/show', (req, res) => {
-  return res.send(JSON.stringify(req.session));
+  return res.send(req.session);
 });
-
 
 
 

@@ -7,7 +7,8 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
     try {
-        res.status(200).render('home');
+        const user = { email: req.session.user.email, isAdmin: req.session.user.isAdmin, firstName: req.session.user.firstName }
+        res.status(200).render('home', { user });
     }
     catch(error) {
         res.status(500).json({ success: false, result: error.message });
