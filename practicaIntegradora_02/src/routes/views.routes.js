@@ -7,7 +7,14 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
     try {
-        const user = { email: req.session.user.email, isAdmin: req.session.user.isAdmin, firstName: req.session.user.firstName }
+        const user = {  
+            email: req.session.user.email, 
+            firstName: req.session.user.firstName, 
+            lastName: req.session.user.lastName, 
+            age: req.session.user.age,
+            cartId: req.session.user.cartId,
+            role: req.session.user.role, 
+        }
         res.status(200).render('home', { user });
     }
     catch(error) {
@@ -33,12 +40,22 @@ router.get('/products', async (req, res) => {
         category ? query.category = category : null;
         stock ? query.stock = { $gt: +stock} : null;
 
+        const user = {  
+            email: req.session.user.email, 
+            firstName: req.session.user.firstName, 
+            lastName: req.session.user.lastName, 
+            age: req.session.user.age,
+            cartId: req.session.user.cartId,
+            role: req.session.user.role, 
+        }
+
         const queryResult = await productService.getProducts(query, limit, page, sort, currentUrl)
 
         return res.status(200).render('products', {
             success: true, 
             products: queryResult.products,
             pagination: queryResult.pagination,
+            user: user,
         });
     }
     catch(error) {

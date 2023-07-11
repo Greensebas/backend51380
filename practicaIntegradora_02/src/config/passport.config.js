@@ -4,6 +4,9 @@ import { createHash, isValidPassword } from '../utils.js';
 import { UserModel } from '../DAO/models/users.model.js';
 import GitHubStrategy from 'passport-github2';
 import dotenv from 'dotenv';
+import { CartService } from '../services/cart.service.js';
+
+const cartService = new CartService
 
 dotenv.config();
 const GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID;
@@ -42,19 +45,24 @@ export function iniPassport() {
       },
       async (req, username, password, done) => {
         try {
-          const { email, firstName, lastName } = req.body;
+          const { email, firstName, lastName, age } = req.body;
           let user = await UserModel.findOne({ email: username });
           if (user) {
             console.log('User already exists');
             return done(null, false);
           }
 
+          const newCart = await cartService.saveCart();
+          const cartId = newCart._id.toString();
+
           const newUser = {
             email,
             firstName,
             lastName,
-            isAdmin: false,
+            age,
             password: createHash(password),
+            cartId,
+            role: 'user',
           };
           let userCreated = await UserModel.create(newUser);
           console.log(userCreated);

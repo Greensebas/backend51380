@@ -1,13 +1,8 @@
 import express from 'express';
-import { UserModel } from '../DAO/models/users.model.js';
-import { isUser, isAdmin } from '../middlewares/auth.js';
-import { createHash, isValidPassword } from '../utils.js';
 import passport from 'passport';
+import { isAdmin, isUser } from '../middlewares/auth.js';
 
 const router = express.Router();
-
-
-
 
 router.get('/login', async (req, res) => {
     try {
@@ -28,7 +23,7 @@ router.get('/register', async (req, res) => {
 });
 
 router.get('/profile', isUser, (req, res) => {
-    const user = { email: req.session.user.email, isAdmin: req.session.user.isAdmin }
+    const user = { email: req.session.user.email, isAdmin: req.session.user.role }
     return res.render('profile', { user })
 })
 
@@ -61,7 +56,7 @@ router.get('/githubcallback', passport.authenticate('github', { failureRedirect:
   res.redirect('/views');
 });
 
-router.get('/show', (req, res) => {
+router.get('/current', (req, res) => {
   return res.send(req.session);
 });
 
@@ -72,9 +67,17 @@ router.post('/login', passport.authenticate('login', { failureRedirect: '/api/se
         if (!req.user) {
             return res.json({ error: 'invalid credentials' });
         }
-        req.session.user = { _id: req.user._id, email: req.user.email, firstName: req.user.firstName, lastName: req.user.lastName, isAdmin: req.user.isAdmin };
+        req.session.user = { 
+            _id: req.user._id, 
+            email: req.user.email, 
+            firstName: req.user.firstName, 
+            lastName: req.user.lastName, 
+            age: req.user.age,
+            cartId: req.user.cartId,
+            role: req.user.role, 
+        };
 
-        return res.redirect('/views');
+        return res.redirect('/views/products');
     }
     catch (error) {
         res.status(500).json({ success: false, result: error.message });
@@ -86,7 +89,15 @@ router.post('/register', passport.authenticate('register', { failureRedirect: '/
         if (!req.user) {
             return res.json({ error: 'something went wrong' });
         }
-        req.session.user = { _id: req.user._id, email: req.user.email, firstName: req.user.firstName, lastName: req.user.lastName, isAdmin: req.user.isAdmin };
+        req.session.user = { 
+            _id: req.user._id, 
+            email: req.user.email, 
+            firstName: req.user.firstName, 
+            lastName: req.user.lastName, 
+            age: req.user.age,
+            cartId: req.user.cartId,
+            role: req.user.role, 
+        };
 
         return res.json({ msg: 'ok', payload: req.user });
     }

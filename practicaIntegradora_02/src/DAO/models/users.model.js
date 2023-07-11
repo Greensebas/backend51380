@@ -18,15 +18,24 @@ const schema = new Schema({
     max: 100,
     unique: true,
   },
+  age: {
+    type: Number,
+    required: false,
+    max: 110,
+  },
   password: {
     type: String,
     required: true,
     max: 100,
   },
-  isAdmin: {
-    type: Boolean,
+  cartId: {
+    type: String,
+    required: false,
+  },
+  role: {
+    type: String,
     required: true,
-    default: false,
+    default: 'user',
   },
 });
 
