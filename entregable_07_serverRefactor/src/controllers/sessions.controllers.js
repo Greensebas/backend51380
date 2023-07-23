@@ -51,7 +51,7 @@ const getCurrentSessionsController = (req, res) => {
 
 const getGithubCallbackSessionsController = (req, res) => {
     req.session.user = req.user;
-    res.redirect('/views');
+    res.redirect('/views/products');
 };
 
 const passportLoginSessionsController = async (req, res) => {

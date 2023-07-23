@@ -1,1 +1,0 @@
-1. Resolver el problema de no tener cartId asociado al perfil en github

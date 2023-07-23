@@ -7,8 +7,9 @@ export function isUser(req, res, next) {
 };
 
 export function isAdmin(req, res, next) {
-  if (req.session?.user.isAdmin) {
+  if (req.session?.user.role == 'admin') {
+    console.log(req.session)
     return next()
   }
-  return res.status(403).render('error', { error: 'Authorization error!' })
+  return res.status(403).render('error', { error: 'Authorization error!', payload  })
 };

@@ -102,6 +102,9 @@ export function iniPassport() {
           }
           profile.email = emailDetail.email;
 
+          const newCart = await cartService.saveCart();
+          const cartId = newCart._id.toString();
+
           let user = await UserModel.findOne({ email: profile.email });
           if (!user) {
             const newUser = {
@@ -109,6 +112,7 @@ export function iniPassport() {
               firstName: profile._json.name || profile._json.login || 'noname',
               lastName: 'nolast',
               isAdmin: false,
+              cartId,
               password: 'nopass',
             };
             let userCreated = await UserModel.create(newUser);
