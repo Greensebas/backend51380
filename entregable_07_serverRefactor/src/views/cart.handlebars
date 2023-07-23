@@ -1,0 +1,15 @@
+<div class="flex-container prod-container">
+  <h2>Cart</h2>
+</div>
+
+{{!-- CARDS --}}
+<div class="cart-tab-container">
+  {{#each cart}}
+    <div class="cart-prod-tab" id="{{this.id}}">
+      <h2 class="cart-prod-name">{{title}}</h2>
+      <p class="cart-prod-price">Price ${{price}}</p>
+      <p class="cart-prod-stock">Quantity: {{quantity}} units</p>
+      <button class="delete-from-cart-button" id="{{this._id}}" onclick="deleteFromCart('{{this._id}}')">Delete</button>
+    </div>
+  {{/each}}
+</div>
