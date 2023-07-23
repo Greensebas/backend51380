@@ -1,7 +1,7 @@
 import { cartService } from '../controllers/carts.controllers.js';
 import { productService } from '../controllers/products.controllers.js';
 
-const getUserRenderController = async (req, res) => {
+const getUserViewsController = async (req, res) => {
     try {
         let user = {};
         req.session.user?
@@ -21,16 +21,8 @@ const getUserRenderController = async (req, res) => {
     }
 };
 
-const getLoginGithubRenderController = async (req, res) => {
-    try {
-        res.status(200).render('login-github');
-    }
-    catch(error) {
-        res.status(500).json({ success: false, result: error.message });
-    }
-};
 
-const getProductsRenderController = async (req, res) => {
+const getProductsViewsController = async (req, res) => {
     try {
         const currentUrl = req.originalUrl
         let { page, limit, sort, category, stock } = req.query;
@@ -62,7 +54,7 @@ const getProductsRenderController = async (req, res) => {
     }
 };
 
-const getCartByIdRenderController = async (req, res) => {
+const getCartByIdViewsController = async (req, res) => {
     try {
         const { cid } = req.params;
         const cart = await cartService.getCartById(cid);
@@ -84,8 +76,7 @@ const getCartByIdRenderController = async (req, res) => {
 
 
 export {
-    getUserRenderController,
-    getLoginGithubRenderController,
-    getProductsRenderController,
-    getCartByIdRenderController,
+    getUserViewsController,
+    getProductsViewsController,
+    getCartByIdViewsController,
 }

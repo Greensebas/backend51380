@@ -83,13 +83,13 @@ body {
 .flex-container {
     display: flex;
     align-items: center;
-    justify-content: space-between;
 }
 
 .prod-container {
     background-color: black;
     height: 90px;
     margin-bottom: 20px;
+    justify-content: space-between;
 }
 
 .prod-container h2 {
@@ -150,6 +150,7 @@ body {
 }
 
 .pages-container {
+    justify-content: center;
     margin: 20px;
     gap: 20px;
 }

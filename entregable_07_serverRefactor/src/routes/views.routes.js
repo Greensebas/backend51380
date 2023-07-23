@@ -1,17 +1,15 @@
 import express from 'express';
 import { 
-    getCartByIdRenderController,
-    getLoginGithubRenderController, 
-    getProductsRenderController, 
-    getUserRenderController 
+    getCartByIdViewsController,
+    getProductsViewsController, 
+    getUserViewsController 
 } from '../controllers/views.controllers.js';
 
 const router = express.Router();
 
-router.get('/', getUserRenderController);
-router.get('/login-github', getLoginGithubRenderController);
-router.get('/products', getProductsRenderController);
-router.get('/cart/:cid', getCartByIdRenderController);
+router.get('/', getUserViewsController);
+router.get('/products', getProductsViewsController);
+router.get('/cart/:cid', getCartByIdViewsController);
 
 
 export default router;
