@@ -7,17 +7,20 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
     try {
-        const user = {  
-            email: req.session.user.email, 
-            firstName: req.session.user.firstName, 
-            lastName: req.session.user.lastName, 
-            age: req.session.user.age,
-            cartId: req.session.user.cartId,
-            role: req.session.user.role, 
-        }
+        let user = {};
+        req.session.user?
+            user = {  
+                email: req.session.user.email, 
+                firstName: req.session.user.firstName, 
+                lastName: req.session.user.lastName, 
+                age: req.session.user.age,
+                cartId: req.session.user.cartId,
+                role: req.session.user.role, 
+            } : user = {};
         res.status(200).render('home', { user });
     }
     catch(error) {
+        console.log(error);
         res.status(500).json({ success: false, result: error.message });
     }
 });

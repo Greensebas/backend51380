@@ -83,7 +83,7 @@ body {
 .flex-container {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
 }
 
 .prod-container {
@@ -94,6 +94,13 @@ body {
 
 .prod-container h2 {
     color: white;
+    margin-left: 50px;
+}
+
+.cart-icon {
+    text-decoration: none;
+    margin-right: 50px;
+    color: #fff;
 }
 
 .product-cards {
