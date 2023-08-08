@@ -1,13 +1,18 @@
 import express from 'express';
 import routes from './routes/app.routes.js';
-
+import session from 'express-session';
+import MongoStore from 'connect-mongo';
 import { __dirname, connectMongo, connectSocket } from './utils.js';
 import path from 'path';
 import handebars from 'express-handlebars';
+import dotenv from 'dotenv';
+import cookieParser from 'cookie-parser';
+import { iniPassport } from './config/passport.config.js';
+import passport from 'passport';
 
 
-
-
+dotenv.config();
+const mongoKey = process.env.DB_PASSWORD
 const PORT = process.env.PORT || 8080;
 const app = express();
 
@@ -23,6 +28,21 @@ app.engine('handlebars', handebars.engine());
 app.set('view engine', 'handlebars');
 app.set('views', path.join(__dirname, 'views'));
 
+// Sessions
+app.use(cookieParser());
+app.use(
+    session({
+      store: MongoStore.create({ mongoUrl: `mongodb+srv://greensebas:${mongoKey}@cluster0.9omke6v.mongodb.net/backend?retryWrites=true&w=majority`, ttl: 1000 }),
+      secret: 'secret',
+      resave: true,
+      saveUninitialized: true,
+    })
+  );
+
+// Passport
+iniPassport();
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Routes
 app.use('/', routes);
