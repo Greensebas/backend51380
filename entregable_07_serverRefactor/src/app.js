@@ -14,7 +14,7 @@ import env from './config/env.config.js';
 
 // dotenv.config();
 const mongoKey = env.DB_PASSWORD
-const PORT = process.env.PORT || 8080;
+const PORT = env.PORT || 3000;
 const app = express();
 
 

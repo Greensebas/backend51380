@@ -3,14 +3,15 @@ import local from 'passport-local';
 import { createHash, isValidPassword } from '../utils.js';
 import { UserModel } from '../DAO/models/users.model.js';
 import GitHubStrategy from 'passport-github2';
-import dotenv from 'dotenv';
+// import dotenv from 'dotenv';
 import { CartService } from '../services/cart.service.js';
+import env from './env.config.js';
 
 const cartService = new CartService
 
-dotenv.config();
-const GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID;
-const GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET;
+// dotenv.config();
+const GITHUB_CLIENT_ID = env.GITHUB_CLIENT_ID;
+const GITHUB_CLIENT_SECRET = env.GITHUB_CLIENT_SECRET;
 
 const LocalStrategy = local.Strategy;
 
