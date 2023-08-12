@@ -11,6 +11,7 @@ dotenv.config({
 
 process.env.NODE_ENV = program.opts().mode;
 
+
 export default {
     PORT: process.env.PORT,
     DB_PASSWORD: process.env.DB_PASSWORD,
