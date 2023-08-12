@@ -5,15 +5,14 @@ import MongoStore from 'connect-mongo';
 import { __dirname, connectMongo, connectSocket } from './utils.js';
 import path from 'path';
 import handebars from 'express-handlebars';
-import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import { iniPassport } from './config/passport.config.js';
 import passport from 'passport';
+import env from './config/env.config.js';
 
 
-dotenv.config();
-const mongoKey = process.env.DB_PASSWORD
-const PORT = process.env.PORT || 8080;
+const mongoKey = env.DB_PASSWORD
+const PORT = env.PORT || 8080;
 const app = express();
 
 

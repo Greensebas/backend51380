@@ -24,10 +24,9 @@ export const __dirname = path.dirname(__filename);
 
 // --------------- MONGOOSE ---------------
 import { connect } from 'mongoose';
-import dotenv from 'dotenv';
+import env from "./config/env.config.js";
 
-dotenv.config();
-const mongoKey = process.env.DB_PASSWORD
+const mongoKey = env.DB_PASSWORD
 
 export async function connectMongo() {
   try {
