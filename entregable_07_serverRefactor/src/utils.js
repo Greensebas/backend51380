@@ -28,13 +28,12 @@ import env from "./config/env.config.js";
 // import dotenv from 'dotenv';
 
 // dotenv.config();
-const mongoKey = env.DB_PASSWORD
+const mongoURL = env.MONGO_URL
 
 export async function connectMongo() {
   try {
     await connect(
-      /* PONER TU STRING ENTERO ACA */
-      `mongodb+srv://greensebas:${mongoKey}@cluster0.9omke6v.mongodb.net/backend?retryWrites=true&w=majority`
+      mongoURL
     );
     console.log('plug to mongo!');
   } catch (e) {
