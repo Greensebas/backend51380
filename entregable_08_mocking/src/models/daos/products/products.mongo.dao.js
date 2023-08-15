@@ -1,7 +1,5 @@
 import { ProductsSchema } from "../../schemas/product.schema.js";
 
-
-
 class ProductMongoDAO {
     async getAll( query, params ) {
         try {
@@ -53,10 +51,6 @@ class ProductMongoDAO {
         }
     };
 
-
-
-}
-
-
+};
 
 export {ProductMongoDAO}

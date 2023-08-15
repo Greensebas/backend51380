@@ -6,7 +6,7 @@ class ProductFsDao {
         this.path = path;
     }
 
-    async getProducts() {
+    async getAll() {
         try {
             if(fs.existsSync(this.path)){
                 const fileToRead = await fs.promises.readFile(this.path, 'utf-8'); 
@@ -61,7 +61,7 @@ class ProductFsDao {
         }
     }
 
-    async getProductById( id ) {
+    async getById( id ) {
         try {
             const products = await this.getProducts();
             const product = products.find(item => item.id === +id);
@@ -72,7 +72,7 @@ class ProductFsDao {
         }
     }
 
-    async deleteProductById( id ) {
+    async delete( id ) {
         try {
             let products = await this.getProducts();
 
@@ -91,7 +91,7 @@ class ProductFsDao {
         }
     }
 
-    async updateProduct( id, prod ) {
+    async update( id, prod ) {
         try{
             let products = await this.getProducts();
 

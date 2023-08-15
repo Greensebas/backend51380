@@ -1,4 +1,3 @@
-// import { ProductsModel } from '../models/product.schema.js';
 import { ProductsDAO } from '../models/daos/app.daos.js';
 import url from 'url'
 
@@ -54,8 +53,6 @@ export class ProductService {
 
     async addProduct(prod) {
         try {
-            // this.validateProduct(prod);
-
             let newProduct = await productDAO.addProduct( prod );
             return newProduct;
         }
@@ -66,8 +63,6 @@ export class ProductService {
 
     async getProductById(id) {
         try {
-            // this.validateId(id);
-
             const product = await productDAO.getById( id );
             return product
         }
@@ -78,8 +73,6 @@ export class ProductService {
 
     async deleteProductById( pid ) {
         try {
-            // this.validateId(id);
-
             const product = await productDAO.delete( pid );
             return product
         }
@@ -90,9 +83,6 @@ export class ProductService {
 
     async updateProduct( pid, prod ) {
         try {
-            // this.validateId(id);
-            // this.validateProduct(prod);
-
             const updatedProduct = await productDAO.update( pid, prod);
             return updatedProduct
         }

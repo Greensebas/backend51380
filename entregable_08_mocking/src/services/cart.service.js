@@ -1,6 +1,5 @@
 import { CartsDAO } from "../models/daos/app.daos.js";
 
-
 const cartDAO = new CartsDAO()
 
 export class CartService {
