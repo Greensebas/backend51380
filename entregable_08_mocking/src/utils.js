@@ -48,7 +48,8 @@ export async function connectMongo() {
 // --------------- SOCKET ---------------
 import {Server} from 'socket.io';
 import {productService} from './controllers/products.controllers.js';
-import { MsgsModel } from "./DAO/models/msgs.model.js";
+// import { MsgsModel } from "./DAO/models/msgs.model.js";
+import { MsgsSchema } from "./models/schemas/msgs.schema.js";
 
 
 export function connectSocket(httpServer) {
@@ -69,8 +70,8 @@ socketServer.on('connection', (socket) => {
     });
 
     socket.on('msg_front_to_back', async (msg) => {
-      const msgCreated = await MsgsModel.create(msg);
-      const msgs = await MsgsModel.find({});
+      const msgCreated = await MsgsSchema.create(msg);
+      const msgs = await MsgsSchema.find({});
       socketServer.emit('msg_back_to_front', msgs);
     });
 })

@@ -1,24 +1,21 @@
-import { ProductsModel } from '../models/product.schema.js';
+// import { ProductsModel } from '../models/product.schema.js';
+import { ProductsDAO } from '../models/daos/app.daos.js';
 import url from 'url'
+
+const productDAO = new ProductsDAO()
 
 export class ProductService {
 
-    // validateProduct(prod) {
-    //     if (!prod.title || !prod.description || !prod.price || !prod.status || !prod.category || !prod.code || !prod.stock) {
-    //         return 'Body format error';
-    //     };
-    // }
-
-    // validateId(id) {
-    //     if(!id) {
-    //     return `ID error`
-    //     };
-    // }
-
-
     async getProducts(query, limit, page, sort, currentUrl) {
         try {
-            const res = await ProductsModel.paginate(query, { limit: limit || 2, page: page || 1, lean: true, sort: sort } );
+            let params = { 
+                limit: limit || 2, 
+                page: page || 1, 
+                lean: true, 
+                sort: sort 
+            };
+
+            const res = await productDAO.getAll( query, params );
             const { docs, ...rest } = res;
             const products = docs;
             let pagination = rest;
@@ -57,9 +54,9 @@ export class ProductService {
 
     async addProduct(prod) {
         try {
-            this.validateProduct(prod);
+            // this.validateProduct(prod);
 
-            let newProduct = await ProductsModel.create(prod);
+            let newProduct = await productDAO.addProduct( prod );
             return newProduct;
         }
         catch (error) {
@@ -69,9 +66,9 @@ export class ProductService {
 
     async getProductById(id) {
         try {
-            this.validateId(id);
+            // this.validateId(id);
 
-            const product = await ProductsModel.findOne({ _id: id });
+            const product = await productDAO.getById( id );
             return product
         }
         catch (error) {
@@ -79,11 +76,11 @@ export class ProductService {
         }
     };
 
-    async deleteProductById(id) {
+    async deleteProductById( pid ) {
         try {
-            this.validateId(id);
+            // this.validateId(id);
 
-            const product = await ProductsModel.deleteOne({ _id: id });
+            const product = await productDAO.delete( pid );
             return product
         }
         catch (error) {
@@ -91,12 +88,12 @@ export class ProductService {
         }
     };
 
-    async updateProduct(id, prod) {
+    async updateProduct( pid, prod ) {
         try {
-            this.validateId(id);
-            this.validateProduct(prod);
+            // this.validateId(id);
+            // this.validateProduct(prod);
 
-            const updatedProduct = await ProductsModel.findOneAndUpdate({ _id: id }, prod, { new: true });
+            const updatedProduct = await productDAO.update( pid, prod);
             return updatedProduct
         }
         catch (error) {
@@ -105,4 +102,4 @@ export class ProductService {
     };
 
 
-}
+};

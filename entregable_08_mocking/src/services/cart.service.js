@@ -1,11 +1,13 @@
+import { CartsDAO } from "../models/daos/app.daos.js";
 
-import { CartModel } from "../DAO/models/cart.model.js";
+
+const cartDAO = new CartsDAO()
 
 export class CartService {
 
     async getCarts() {
         try {
-            const carts = await CartModel.find({});
+            const carts = await cartDAO.getAll();
             return carts
         }
         catch (error) {
@@ -15,7 +17,7 @@ export class CartService {
 
     async saveCart() {
         try {
-            let newCart = await CartModel.create({});
+            let newCart = await cartDAO.createCart();
             return newCart;
         }
         catch (error) {
@@ -25,7 +27,7 @@ export class CartService {
 
     async getCartById( cid ) {
         try {
-            let cart = await CartModel.findOne({ _id: cid });
+            let cart = await cartDAO.getById( cid );
             return cart;
         }
         catch (error) {
@@ -35,19 +37,19 @@ export class CartService {
 
     async addToCart( cid, pid ) {
         try {
-            let res = await CartModel.findOneAndUpdate(
+            let res = await cartDAO.update( 
                 { _id: cid, 'products.product': pid},
                 { $inc: { 'products.$.quantity': 1 } },
                 { new: true}
             );
-            
+
             if(!res) {
-                res = await CartModel.findOneAndUpdate(
+                res = await cartDAO.update(
                     { _id: cid },
                     { $push: { products: { product: pid, quantity: 1 } } },
                     { new: true }
                 );
-            }
+            };
 
             return res;
         }
@@ -58,12 +60,12 @@ export class CartService {
 
     async addQtyToCart( cid, pid, qty ) {
         try {
-            const cart = await CartModel.findOne({ _id: cid });
+            const cart = await cartDAO( cid );
             const productInCart = cart.products.find((item) => item.product._id.toString() === pid);
 
             let res;
             if ((productInCart.quantity + qty) >= 1) {
-                res = await CartModel.findOneAndUpdate(
+                res = await cartDAO.update(
                     { _id: cid, 'products.product': pid},
                     { $inc: { 'products.$.quantity': +qty } },
                     { new: true}
@@ -72,7 +74,7 @@ export class CartService {
             } 
             
             if ((productInCart.quantity + qty) === 0) {
-                res = await CartModel.findOneAndUpdate(
+                res = await cartDAO.update(
                     { _id: cid },
                     { $pull: { products: { product: pid } } },
                     { new: true }
@@ -90,7 +92,7 @@ export class CartService {
 
     async removeFromCart( cid, pid ) {
         try {
-            let res = await CartModel.findOneAndUpdate(
+            let res = await cartDAO.update(
                     { _id: cid },
                     { $pull: { products: { product: pid } } },
                     { new: true }
@@ -105,7 +107,7 @@ export class CartService {
 
     async emptyCartById( cid ) {
         try {
-            let cart = await CartModel.findOneAndUpdate(
+            let cart = await cartDAO.update(
                 { _id: cid },
                 { products: [] },
                 { new: true }
@@ -120,7 +122,7 @@ export class CartService {
 
     async overwriteCartById( cid, prods ) {
         try {
-            let cart = await CartModel.findOneAndUpdate(
+            let cart = await cartDAO.update(
                 { _id: cid },
                 { products: prods },
                 { new: true }

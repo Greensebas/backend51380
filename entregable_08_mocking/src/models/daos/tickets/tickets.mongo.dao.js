@@ -1,0 +1,8 @@
+
+
+class TicketsMongoDAO {
+
+
+}
+
+export {TicketsMongoDAO}

@@ -13,6 +13,7 @@ process.env.NODE_ENV = program.opts().mode;
 
 export default {
     PORT: process.env.PORT,
+    PERSISTENCE: process.env.PERSISTENCE,
     DB_PASSWORD: process.env.DB_PASSWORD,
     MONGO_URL: process.env.MONGO_URL,
     GITHUB_APP_ID: process.env.GITHUB_APP_ID,

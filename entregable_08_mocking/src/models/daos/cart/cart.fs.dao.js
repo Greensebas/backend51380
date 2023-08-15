@@ -8,7 +8,7 @@ class CartFsDao {
         this.path = path;
     }
 
-    async getCarts() {
+    async getAll() {
         try {
             if(fs.existsSync(this.path)){
                 const fileToRead = await fs.promises.readFile(this.path, 'utf-8'); 
@@ -26,7 +26,7 @@ class CartFsDao {
         }
     };
 
-    async saveCart() {
+    async createCart() {
         try{
             const carts = await this.getCarts();
             const newCart = {
@@ -92,7 +92,7 @@ class CartFsDao {
         }
     };
 
-    async removeToCart( cid, pid ) {
+    async removeFromCart( cid, pid ) {
         try{
             let carts = await this.getCarts();
             let cartIndex = carts.findIndex(item => item.id === cid);

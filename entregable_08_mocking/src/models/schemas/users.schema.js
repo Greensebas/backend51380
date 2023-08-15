@@ -40,4 +40,4 @@ const schema = new Schema({
 });
 
 schema.plugin(monsoosePaginate);
-export const UserModel = model('users', schema);
+export const UserSchema = model('users', schema);
