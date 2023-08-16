@@ -7,6 +7,7 @@
 <section class="home">
     <h1 class="welcome">Welcome to our website</h1>
     <h3 class="hello">Hello, <span>{{user.firstName}}</span> !</h3>
+    <p class="user-cartId" id="{{user.cartId}}">{{user.cartId}}</p>
 
 
     <p class="greeting">Thank you for registering on our website. We are excited to have you as part of our community.</p>
@@ -19,12 +20,12 @@
 {{!-- CARDS --}}
 <div class="product-cards">
   {{#each products}}
-    <div class="product-card" id="{{this.id}}">
+    <div class="product-card" id="{{_id}}">
       <h2 class="product-name">{{title}}</h2>
       <p class="product-description">{{description}}</p>
       <p class="product-price">${{price}}</p>
       <p class="product-stock">Stock: {{stock}} unidades</p>
-      <button class="add-to-cart-button" id="{{this._id}}" onclick="addToCart('{{this._id}}')">Add to Cart</button>
+      <button class="add-to-cart-button" id="{{_id}}" onclick="addToCart('{{_id}}')">Add to Cart</button>
     </div>
   {{/each}}
 </div>

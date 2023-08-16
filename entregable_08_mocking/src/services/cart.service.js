@@ -36,19 +36,7 @@ export class CartService {
 
     async addToCart( cid, pid ) {
         try {
-            let res = await cartDAO.update( 
-                { _id: cid, 'products.product': pid},
-                { $inc: { 'products.$.quantity': 1 } },
-                { new: true}
-            );
-
-            if(!res) {
-                res = await cartDAO.update(
-                    { _id: cid },
-                    { $push: { products: { product: pid, quantity: 1 } } },
-                    { new: true }
-                );
-            };
+            let res = await cartDAO.addToCart( cid, pid); 
 
             return res;
         }
@@ -59,25 +47,18 @@ export class CartService {
 
     async addQtyToCart( cid, pid, qty ) {
         try {
-            const cart = await cartDAO( cid );
+            const cart = await cartDAO.getById( cid );
             const productInCart = cart.products.find((item) => item.product._id.toString() === pid);
 
             let res;
             if ((productInCart.quantity + qty) >= 1) {
-                res = await cartDAO.update(
-                    { _id: cid, 'products.product': pid},
-                    { $inc: { 'products.$.quantity': +qty } },
-                    { new: true}
-                );
+                res = await cartDAO.addQtyToCart( cid, pid, qty )
                 return res;
             } 
             
             if ((productInCart.quantity + qty) === 0) {
-                res = await cartDAO.update(
-                    { _id: cid },
-                    { $pull: { products: { product: pid } } },
-                    { new: true }
-                );
+                // HACER EL REMOVE ACA
+                res = await cartDAO.delete( cid, pid )
                 return res;
             } else {
                 return `I'm sorry, we can't subtract that amount, there are only ${productInCart.quantity} units of this products left in the cart`
@@ -91,11 +72,7 @@ export class CartService {
 
     async removeFromCart( cid, pid ) {
         try {
-            let res = await cartDAO.update(
-                    { _id: cid },
-                    { $pull: { products: { product: pid } } },
-                    { new: true }
-            );
+            let res = await cartDAO.delete( cid, pid )
 
             return res;
         }
@@ -106,11 +83,7 @@ export class CartService {
 
     async emptyCartById( cid ) {
         try {
-            let cart = await cartDAO.update(
-                { _id: cid },
-                { products: [] },
-                { new: true }
-            );
+            let cart = await cartDAO.emptyCart( cid );
             return cart;
         }
         catch (error) {
@@ -121,11 +94,7 @@ export class CartService {
 
     async overwriteCartById( cid, prods ) {
         try {
-            let cart = await cartDAO.update(
-                { _id: cid },
-                { products: prods },
-                { new: true }
-            );
+            let cart = await cartDAO.overwriteCart( cid, prods);
             return cart;
         }
         catch (error) {

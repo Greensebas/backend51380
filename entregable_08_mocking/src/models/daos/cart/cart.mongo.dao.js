@@ -32,9 +32,84 @@ class CartMongoDAO {
         }
     };
 
-    async update() {
+    async addToCart( cid, pid ) {
         try {
-            let res = await CartSchema.findOneAndUpdate();
+            let res = await CartSchema.findOneAndUpdate(
+                { _id: cid, 'products.product': pid},
+                { $inc: { 'products.$.quantity': 1 } },
+                { new: true}
+            );
+
+            if(!res) {
+                res = await CartSchema.findOneAndUpdate(
+                    { _id: cid },
+                    { $push: { products: { product: pid, quantity: 1 } } },
+                    { new: true }
+                )
+            }
+
+            return res;
+        }
+        catch (error) {
+            console.log(error)
+        }
+    };
+
+    async addQtyToCart( cid, pid, qty) {
+        try {
+            let res = await CartSchema.findOneAndUpdate(
+                { _id: cid, 'products.product': pid},
+                { $inc: { 'products.$.quantity': +qty } },
+                { new: true}
+            );
+
+            return res;
+        }
+        catch (error) {
+            console.log(error)
+        }
+    };
+ 
+ 
+    async delete( cid, pid ) {
+        try {
+            let res = await CartSchema.findOneAndUpdate(
+                { _id: cid },
+                { $pull: { products: { product: pid } } },
+                { new: true }
+            );
+
+            return res;
+        }
+        catch (error) {
+            console.log(error)
+        }
+    };
+
+
+    async emptyCart( cid ) {
+        try {
+            let res = await CartSchema.findOneAndUpdate(
+                { _id: cid },
+                { products: [] },
+                { new: true }
+            );
+
+            return res;
+        }
+        catch (error) {
+            console.log(error)
+        }
+    };
+
+
+    async overwriteCart( cid, prods ) {
+        try {
+            let res = await CartSchema.findOneAndUpdate(
+                { _id: cid },
+                { products: prods },
+                { new: true }
+            );
 
             return res;
         }

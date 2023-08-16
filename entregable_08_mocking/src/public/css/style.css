@@ -327,3 +327,7 @@ body {
     text-decoration: none;
     font-weight: bold;
 }
+
+.user-cartId {
+    display: none;
+}
