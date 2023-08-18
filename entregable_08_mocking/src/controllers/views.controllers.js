@@ -59,15 +59,29 @@ const getCartByIdViewsController = async (req, res) => {
         const { cid } = req.params;
         const cart = await cartService.getCartById(cid);
 
+        const user = {  
+            email: req.session.user.email, 
+            firstName: req.session.user.firstName, 
+            lastName: req.session.user.lastName, 
+            age: req.session.user.age,
+            cartId: req.session.user.cartId,
+            role: req.session.user.role, 
+        }
+
         const simplifiedCart = cart.products.map((item) => {
             return {
+                id: item._id,
                 title: item.product.title,
                 price: item.product.price,
                 quantity: item.quantity,
+                total: item.product.price * item.quantity,
             };
         });
 
-        return res.status(200).render('cart', { cart: simplifiedCart });
+        return res.status(200).render('cart', { 
+            cart: simplifiedCart,
+            user: user,
+        });
     }
     catch(error) {
         res.status(500).json({ success: false, result: error.message });

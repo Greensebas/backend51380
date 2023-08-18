@@ -15,6 +15,7 @@ const router = express.Router()
 
 router.post('/', saveCartController);
 router.get('/:cid', getCartByIdController);
+router.get('/:cid/purchase', getCartByIdController);
 router.put('/:cid', overwriteCartByIdController);
 router.post('/:cid/product/:pid', addToCartController);
 router.put('/:cid/product/:pid', addQtyToCartController);

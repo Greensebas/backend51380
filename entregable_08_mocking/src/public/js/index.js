@@ -26,3 +26,13 @@ const addToCart = ( productId ) => {
             console.error("Error: ", error);
         });
 };
+
+const deleteFromCart = ( productId ) => {
+    console.log(productId)
+    alert(`delete ${productId}`)
+}
+
+const purchaseCart = ( cartId ) => {
+    console.log(cartId)
+    alert(`purchase ${cartId}`)
+}

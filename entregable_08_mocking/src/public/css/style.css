@@ -213,12 +213,22 @@ body {
   }
 
   .cart-prod-price,
-  .cart-prod-stock {
+  .cart-prod-stock,
+  .cart-prod-total {
     margin-right: 10px;
   }
 
   .delete-from-cart-button {
     background-color: #f44336;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+
+  .purchase-cart-button {
+    background-color: #36a2f4;
     color: #fff;
     border: none;
     border-radius: 3px;
