@@ -1,4 +1,4 @@
-import TicketSchema from "../../schemas/tickets.schema";
+import { TicketSchema } from "../../schemas/tickets.schema.js";
 
 class TicketsMongoDAO {
 
@@ -21,7 +21,7 @@ class TicketsMongoDAO {
         }
     }
 
-    async add(ticket) {
+    async create( ticket ) {
         try {
             const newTicket = await TicketSchema.create(ticket);
             return newTicket;

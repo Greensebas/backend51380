@@ -5,6 +5,7 @@ import {
     addProductController, 
     deleteProductByIdController, 
     updateProductController,
+    updateStockController,
 } from '../controllers/products.controllers.js';
 
 
@@ -16,6 +17,8 @@ const router = express.Router();
     router.post('/', addProductController);
     router.delete('/:pid', deleteProductByIdController);
     router.put('/:pid', updateProductController);
+    //la siguiente ruta es de prueba
+    router.put('/qty/:pid', updateStockController);
 
 
 export default router;

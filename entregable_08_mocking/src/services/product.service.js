@@ -91,5 +91,17 @@ export class ProductService {
         }
     };
 
+    async updateStock( pid, stock ) {
+        try {
+            const updatedProduct = await productDAO.updateStock( pid, +stock);
+
+            return updatedProduct
+
+        }
+        catch (error) {
+            throw new Error(error.message);
+        }
+    };
+
 
 };

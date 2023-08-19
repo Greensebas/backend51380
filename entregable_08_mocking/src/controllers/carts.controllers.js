@@ -1,6 +1,9 @@
+import { userDTO } from "../models/DTO/user.dto.js";
 import { CartService } from "../services/cart.service.js";
+import { TicketService } from "../services/ticket.service.js";
 
-const cartService = new CartService
+const cartService = new CartService;
+const ticketService = new TicketService;
 
 // POST /api/carts
 const saveCartController = async (req, res) => {
@@ -96,6 +99,21 @@ const overwriteCartByIdController = async (req, res) => {
     }
 };
 
+
+const purchaseCartController = async (req, res) => {
+    try{
+        const cid = req.params.cid;
+        const cartList = req.body;
+        const infoUser = new userDTO(req.session.user);
+
+        const response = await ticketService.createTicket( cid, cartList, infoUser);
+        return res.status(200).json( {success: true, result: response} )
+    }
+    catch(error) {
+        res.status(500).json({ success: false, result: error.message });
+    }
+};
+
 export {
     saveCartController,
     getCartByIdController,
@@ -104,5 +122,6 @@ export {
     emptyCartByIdController,
     addQtyToCartController,
     overwriteCartByIdController,
+    purchaseCartController,
     cartService,
 }

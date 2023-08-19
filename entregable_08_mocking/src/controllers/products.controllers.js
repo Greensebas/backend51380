@@ -98,6 +98,30 @@ const updateProductController = async (req, res) => {
     }
 };
 
+const updateStockController = async (req, res) => {
+    try {
+        let stock = req.body.stock;
+        let pid = req.params.pid;
+        // console.log(stock)
+        let updatedProduct = await productService.updateStock(pid, stock);
+        // let updatedProduct = 'updated product 107 ';
+
+        if(updatedProduct === 'ID error'){
+            return res.status(400).json( {success: false, result: `Product with id: '${pid}' not found`} )
+        }
+
+        if(updatedProduct === 'Body format error'){
+            return res.status(400).json( {success: false, result: `Wrong body format. The product must be contain 'title', 'description', 'price', 'thumbnail', 'code' and 'stock`});
+        };
+
+        return res.status(200).json( {success: true, result: updatedProduct} )
+        
+    }
+    catch (error) {
+        res.status(500).json( {success: false, result: error.message} );
+    }
+};
+
 
 export {
     getProductsController,
@@ -105,5 +129,6 @@ export {
     addProductController,
     deleteProductByIdController,
     updateProductController,
+    updateStockController,
     productService,
 }

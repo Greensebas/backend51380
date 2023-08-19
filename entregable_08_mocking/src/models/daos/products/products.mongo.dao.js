@@ -51,6 +51,21 @@ class ProductMongoDAO {
         }
     };
 
+    async updateStock( pid, stock ) {
+        try {
+            let res = await ProductsSchema.findOneAndUpdate(
+                { _id: pid},
+                { $inc: { stock: stock } },
+                { new: true}
+            );
+
+            return res;
+        }
+        catch (error) {
+            console.log(error)
+        }
+    };
+
 };
 
 export {ProductMongoDAO}
