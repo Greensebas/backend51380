@@ -21,6 +21,10 @@ const ticketSchema = new Schema(
                     type: Number,
                     default: 0,
                 },
+                partialPrice: {
+                    type: Number,
+                    default: 0,
+                },
                 _id: false,
             },
         ],

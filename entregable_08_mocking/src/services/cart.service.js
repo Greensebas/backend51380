@@ -120,7 +120,9 @@ export class CartService {
                 productsInCartData.map(( prod, index ) => {
                     if( productsInCartQty[index] > prod.stock) {
                         prodOutStock.push({
+                            title: prod.title,
                             _id: prod._id,
+                            stock: prod.stock,
                             quantity: productsInCartQty[index],
                         });
                     }
@@ -134,7 +136,8 @@ export class CartService {
                             title: prod.title,
                             _id: prod.id,
                             stock: newStock,
-                            quantity: productsInCartQty[index]
+                            quantity: productsInCartQty[index],
+                            partialPrice: prod.price * productsInCartQty[index],
                         });
                     };
                 });
@@ -145,11 +148,14 @@ export class CartService {
                     products: prodStock.map((prod) => ({
                         product: prod.title,
                         id: prod._id,
-                        quantity: prod.quantity
+                        quantity: prod.quantity,
+                        partialPrice: prod.partialPrice,
                     }))
                 });
 
-                console.log(ticket)
+                prodStock.map( async (prod) => {
+                    await productDAO.updateStock(prod._id, -prod.quantity);
+                });
 
                 return {
                     ticket,
