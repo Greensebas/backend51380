@@ -66,6 +66,21 @@ class ProductMongoDAO {
         }
     };
 
+    async getArrProductsById( arr ) {
+        try {
+            const productsData = [];
+            
+            for ( let id of arr) {
+                const product = await this.getById(id);
+                productsData.push(product);
+            }
+            return productsData;
+        } 
+        catch (error) {
+            console.log(error);
+        }
+    }
+
 };
 
 export {ProductMongoDAO}

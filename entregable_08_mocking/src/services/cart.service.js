@@ -1,6 +1,9 @@
-import { CartsDAO } from "../models/daos/app.daos.js";
+import { CartsDAO, ProductsDAO } from "../models/daos/app.daos.js";
+import { TicketService } from "../services/ticket.service.js";
 
-const cartDAO = new CartsDAO()
+const cartDAO = new CartsDAO();
+const productDAO = new ProductsDAO();
+const ticketService = new TicketService;
 
 export class CartService {
 
@@ -96,6 +99,64 @@ export class CartService {
         try {
             let cart = await cartDAO.overwriteCart( cid, prods);
             return cart;
+        }
+        catch (error) {
+            throw new Error(error.message);
+        }
+    };
+
+    async purchaseCart( cid, infoUser ) {
+        try {
+            let cart = await cartDAO.getById( cid );
+            if( cart ) {
+                const productsInCartIds = cart.products.map( product => product.product._id);
+                const productsInCartQty = cart.products.map(product => product.quantity);
+                const productsInCartData = await productDAO.getArrProductsById(productsInCartIds);
+
+                let amount = 0;
+                let prodOutStock = [];
+                let prodStock = [];
+
+                productsInCartData.map(( prod, index ) => {
+                    if( productsInCartQty[index] > prod.stock) {
+                        prodOutStock.push({
+                            _id: prod._id,
+                            quantity: productsInCartQty[index],
+                        });
+                    }
+                    else {
+                        let newStock = prod.stock - (productsInCartQty[index]);
+                        let productInCartPrice = prod.price * (productsInCartQty[index]);
+
+                        amount += productInCartPrice;
+
+                        prodStock.push({
+                            title: prod.title,
+                            _id: prod.id,
+                            stock: newStock,
+                            quantity: productsInCartQty[index]
+                        });
+                    };
+                });
+
+                const ticket = await ticketService.createTicket({
+                    amount,
+                    purchaser: infoUser.email,
+                    products: prodStock.map((prod) => ({
+                        product: prod.title,
+                        id: prod._id,
+                        quantity: prod.quantity
+                    }))
+                });
+
+                console.log(ticket)
+
+                return {
+                    ticket,
+                    prodOutStock,
+                    prodStock
+                };
+            }
         }
         catch (error) {
             throw new Error(error.message);

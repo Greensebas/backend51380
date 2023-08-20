@@ -1,7 +1,8 @@
 //@ts-check
 import { Schema, model } from 'mongoose';
 
-const cartSchema = new Schema({
+const cartSchema = new Schema(
+    {
     products: {
         type: [
             {
@@ -13,11 +14,14 @@ const cartSchema = new Schema({
                     type: Number,
                     default: 0,
                 },
+                _id: false,
             },
         ],
         default: [],
     },
-});
+    },
+    { versionKey: false}
+);
 
 
 // Esto es el pre-populate

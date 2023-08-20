@@ -103,10 +103,9 @@ const overwriteCartByIdController = async (req, res) => {
 const purchaseCartController = async (req, res) => {
     try{
         const cid = req.params.cid;
-        const cartList = req.body;
         const infoUser = new userDTO(req.session.user);
 
-        const response = await ticketService.createTicket( cid, cartList, infoUser);
+        const response = await cartService.purchaseCart( cid, infoUser )
         return res.status(200).json( {success: true, result: response} )
     }
     catch(error) {
