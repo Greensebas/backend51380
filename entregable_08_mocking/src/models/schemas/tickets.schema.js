@@ -3,7 +3,7 @@ import { Schema, model } from 'mongoose';
 
 const ticketSchema = new Schema(
     {
-    code: { type: String, required: true, unique: true, default: Date.now() },
+    code: { type: String, required: true, default: Date.now() },
     purchase_datetime: { type: Date, required: true, default: Date.now() },
     amount: { type: Number, required: true },
     purchaser: { type: String, required: true, default: '' },
