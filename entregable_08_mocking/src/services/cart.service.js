@@ -142,6 +142,16 @@ export class CartService {
                     };
                 });
 
+                if(prodStock.length === 0) {
+                    return {
+                        status: 400,
+                        result: {
+                            status: 'error',
+                            error: 'Cart is empty'
+                        },
+                    };
+                };
+
                 const ticket = await ticketService.createTicket({
                     amount,
                     purchaser: infoUser.email,
@@ -169,5 +179,16 @@ export class CartService {
         }
     };
 
+    async updateCartAfterPurchase( cid, prodStock ) {
+        try {
+            prodStock.map( async (prod) => {
+                await cartDAO.delete( cid, prod._id )
+            });
+
+        }
+        catch (error) {
+            throw new Error(error.message);
+        }
+    };
 
 }

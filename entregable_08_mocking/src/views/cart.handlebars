@@ -14,5 +14,6 @@
     </div>
   {{/each}}
 </div>
-<button class="purchase-cart-button" id="{{user.cartId}}" onclick="purchaseCart('{{user.cartId}}')">Purchase</button>
-<a class="logout" href='/views/products'>Back to products</a>
+
+<a class="purchase-cart" href="/api/carts/{{user.cartId}}/purchase">Purchase</a>
+<a class="back-to-products" href='/views/products'>Back to products</a>

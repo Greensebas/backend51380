@@ -105,8 +105,20 @@ const purchaseCartController = async (req, res) => {
         const cid = req.params.cid;
         const infoUser = new userDTO(req.session.user);
 
-        const response = await cartService.purchaseCart( cid, infoUser )
-        return res.status(200).json( {success: true, result: response} )
+        const newTicket = await cartService.purchaseCart( cid, infoUser );
+
+        if (newTicket.status === 400) {
+            return res.status(400).render( 'error', {error: newTicket.result.error})
+        }
+
+        await cartService.updateCartAfterPurchase(cid, newTicket.prodStock);
+
+        return res.status(200).render( 'ticket', {
+            id: newTicket.ticket._id,
+            purchaser: newTicket.ticket.purchaser,
+            amount: newTicket.ticket.amount,
+            products: newTicket.prodStock,
+        } );
     }
     catch(error) {
         res.status(500).json({ success: false, result: error.message });
