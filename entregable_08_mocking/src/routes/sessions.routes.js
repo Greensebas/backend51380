@@ -1,6 +1,6 @@
 import express from 'express';
 import passport from 'passport';
-import { isAdmin, isUser } from '../middlewares/auth.js';
+import { isAdmin, isLogged, isUser, redirectIfLoggedIn } from '../middlewares/auth.js';
 import { 
     getAdministrationSessionsController,
     getCurrentSessionsController,
@@ -19,11 +19,11 @@ import {
 const router = express.Router();
 
 
-router.get('/login', getLoginSessionsController);
-router.get('/register', getRegisterSessionsController);
-router.get('/profile', isUser, getProfileSessionsController);
+router.get('/login', redirectIfLoggedIn, getLoginSessionsController);
+router.get('/register', redirectIfLoggedIn, getRegisterSessionsController);
+router.get('/profile', isLogged, getProfileSessionsController);
 router.get('/logout', getLogoutSessionsController);
-router.get('/administration', isUser, isAdmin, getAdministrationSessionsController);
+router.get('/administration', isAdmin, getAdministrationSessionsController);
 router.get('/failregister', getFailRegisterSessionsController);
 router.get('/faillogin', getFailLoginSessionsController);
 router.get('/current', getCurrentSessionsController);

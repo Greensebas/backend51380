@@ -1,4 +1,5 @@
-import {isAdmin} from '../middlewares/auth.js';
+
+import { userDTO } from '../models/DTO/user.dto.js'
 
 
 const getLoginSessionsController = async (req, res) => {
@@ -46,7 +47,9 @@ const getFailLoginSessionsController = (req, res) => {
 };
 
 const getCurrentSessionsController = (req, res) => {
-    return res.send(req.session);
+    const infoUser = new userDTO(req.session.user);
+    return res.send(infoUser);
+    // return res.send(req.session);
 };
 
 const getGithubCallbackSessionsController = (req, res) => {

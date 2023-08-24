@@ -5,20 +5,19 @@ import {
     addProductController, 
     deleteProductByIdController, 
     updateProductController,
-    updateStockController,
 } from '../controllers/products.controllers.js';
+import { isAdmin, isLogged } from '../middlewares/auth.js';
 
 
 const router = express.Router();
 
 // Routes
-    router.get( '/', getProductsController);
-    router.get('/:pid', getProductByIdController);
-    router.post('/', addProductController);
-    router.delete('/:pid', deleteProductByIdController);
-    router.put('/:pid', updateProductController);
-    //la siguiente ruta es de prueba
-    router.put('/qty/:pid', updateStockController);
+    router.get( '/', isLogged, getProductsController);
+    router.get('/:pid', isLogged, getProductByIdController);
+    router.post('/', isLogged, isAdmin, addProductController);
+    router.delete('/:pid', isLogged, isAdmin, deleteProductByIdController);
+    router.put('/:pid', isLogged, isAdmin, updateProductController);
+
 
 
 export default router;
