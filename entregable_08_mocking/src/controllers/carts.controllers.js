@@ -1,9 +1,9 @@
 import { userDTO } from "../models/DTO/user.dto.js";
 import { CartService } from "../services/cart.service.js";
-import { TicketService } from "../services/ticket.service.js";
+// import { TicketService } from "../services/ticket.service.js";
 
 const cartService = new CartService;
-const ticketService = new TicketService;
+// const ticketService = new TicketService;
 
 // POST /api/carts
 const saveCartController = async (req, res) => {
