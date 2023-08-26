@@ -55,24 +55,24 @@ export class ProductService {
 
 
     async addProduct(prod) {
-        try {
+        // try {
             const { title, description, price, thumbnail, code, stock, category } = prod;
 
             if(!title || !description || !price || !thumbnail || !code || !stock || !category) {
                 return CustomError.createError({
                     name: 'Wrong body format',
+                    cause: productFormatError(prod),
                     message: 'There has probably been an error when completing the product fields. Please check it',
                     code: EErros.INVALID_PRODUCT_FORMAT,
-                    cause: productFormatError(prod)
                 });
             };
 
             let newProduct = await productDAO.addProduct( prod );
             return newProduct;
-        }
-        catch (error) {
-            throw new Error(error.message);
-        }
+        // }
+        // catch (error) {
+        //     throw new Error(error.message);
+        // }
     };
 
     async getProductById(id) {

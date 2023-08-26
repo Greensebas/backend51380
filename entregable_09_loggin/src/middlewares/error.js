@@ -12,7 +12,7 @@ export default (error, req, res, next) => {
         case EErros.INVALID_PRODUCT_FORMAT:
             res
                 .status(400)
-                .send({ status: 'error', error: error.name, cause: error.cause });
+                .send({ status: 'error', error: error.name, message: error.message, cause: error.cause });
             break;
         case EErros.PRODUCT_ALREADY_EXISTS:
             res
