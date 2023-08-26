@@ -9,6 +9,7 @@ import cookieParser from 'cookie-parser';
 import { iniPassport } from './config/passport.config.js';
 import passport from 'passport';
 import env from './config/env.config.js';
+import compression from 'express-compression';
 
 
 const mongoKey = env.DB_PASSWORD
@@ -18,6 +19,7 @@ const app = express();
 
 
 // Middlewares
+app.use(compression( { brotli: { enabled: true, zlib: {} } } ) ); // es para comprimir los json que se trafiquen. La configuración extra es para que utilice Brotli
 app.use(express.json()); // es para parsear el body que viene en el post
 app.use(express.urlencoded({ extended: true}));
 app.use(express.static(path.join(__dirname, 'public')));  // Para aclarar que 'public' está dentro de /src
