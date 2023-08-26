@@ -1,5 +1,8 @@
 import { ProductsDAO } from '../models/daos/app.daos.js';
-import url from 'url'
+import url from 'url';
+import CustomError from '../errors/customError.js';
+import {productFormatError}  from '../errors/customErrorMsgs.js';
+import { EErros } from '../errors/enums.js';
 
 const productDAO = new ProductsDAO()
 
@@ -53,6 +56,17 @@ export class ProductService {
 
     async addProduct(prod) {
         try {
+            const { title, description, price, thumbnail, code, stock, category } = prod;
+
+            if(!title || !description || !price || !thumbnail || !code || !stock || !category) {
+                return CustomError.createError({
+                    name: 'Wrong body format',
+                    message: 'There has probably been an error when completing the product fields. Please check it',
+                    code: EErros.INVALID_PRODUCT_FORMAT,
+                    cause: productFormatError(prod)
+                });
+            };
+
             let newProduct = await productDAO.addProduct( prod );
             return newProduct;
         }
