@@ -11,6 +11,7 @@ import passport from 'passport';
 import env from './config/env.config.js';
 import compression from 'express-compression';
 import errorHandler from './middlewares/error.js'
+import { addLogger } from './middlewares/logger.js';
 
 
 const mongoKey = env.DB_PASSWORD
@@ -20,6 +21,7 @@ const app = express();
 
 
 // Middlewares
+app.use(addLogger);
 app.use(express.json()); // es para parsear el body que viene en el post
 app.use(compression()); // es para comprimir los json que se trafiquen. La configuración extra '{brotli: {enabled: true, zlib: {}}}' es para que utilice Brotli
 app.use(express.urlencoded({ extended: true}));

@@ -13,6 +13,7 @@ process.env.NODE_ENV = program.opts().mode;
 
 export default {
     PORT: process.env.PORT,
+    NODE_ENV: process.env.NODE_ENV,
     PERSISTENCE: process.env.PERSISTENCE,
     DB_PASSWORD: process.env.DB_PASSWORD,
     MONGO_URL: process.env.MONGO_URL,
