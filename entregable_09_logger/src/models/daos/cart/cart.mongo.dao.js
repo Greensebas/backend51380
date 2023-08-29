@@ -1,3 +1,4 @@
+import { logger } from "../../../middlewares/logger.js";
 import { CartSchema } from "../../schemas/cart.schema.js";
 
 class CartMongoDAO {
@@ -8,7 +9,7 @@ class CartMongoDAO {
             return carts;
         }
         catch (error) {
-            console.log(error)
+            logger.error(error)
         }
     };
     
@@ -18,7 +19,7 @@ class CartMongoDAO {
             return cart;
         }
         catch (error) {
-            console.log(error)
+            logger.error(error)
         }
     };
 
@@ -28,7 +29,7 @@ class CartMongoDAO {
             return newCart;
         }
         catch (error) {
-            console.log(error)
+            logger.error(error)
         }
     };
 
@@ -51,7 +52,7 @@ class CartMongoDAO {
             return res;
         }
         catch (error) {
-            console.log(error)
+            logger.error(error)
         }
     };
 
@@ -66,7 +67,7 @@ class CartMongoDAO {
             return res;
         }
         catch (error) {
-            console.log(error)
+            logger.error(error)
         }
     };
  
@@ -82,7 +83,7 @@ class CartMongoDAO {
             return res;
         }
         catch (error) {
-            console.log(error)
+            logger.error(error)
         }
     };
 
@@ -98,7 +99,7 @@ class CartMongoDAO {
             return res;
         }
         catch (error) {
-            console.log(error)
+            logger.error(error)
         }
     };
 
@@ -114,7 +115,7 @@ class CartMongoDAO {
             return res;
         }
         catch (error) {
-            console.log(error)
+            logger.error(error)
         }
     };
 

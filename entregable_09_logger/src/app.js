@@ -11,7 +11,7 @@ import passport from 'passport';
 import env from './config/env.config.js';
 import compression from 'express-compression';
 import errorHandler from './middlewares/error.js'
-import { addLogger } from './middlewares/logger.js';
+import { addLogger, logger } from './middlewares/logger.js';
 
 
 const mongoKey = env.DB_PASSWORD
@@ -58,11 +58,11 @@ app.use(errorHandler);
 // ---- || ----
 
 const httpServer = app.listen(PORT, () => {
-    console.log(`🚀 Server is up and run on port ${PORT} 🚀`);
+    logger.info(`🚀 Server is up and run on port ${PORT} 🚀`);
 });
 
 httpServer.on('error', (error) => {
-    console.log(error.message)
+    logger.error(error.message)
 });
 
 

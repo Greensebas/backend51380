@@ -25,6 +25,7 @@ export const __dirname = path.dirname(__filename);
 // --------------- MONGOOSE ---------------
 import { connect } from 'mongoose';
 import env from "./config/env.config.js";
+import { logger } from "./middlewares/logger.js";
 
 const mongoKey = env.DB_PASSWORD
 
@@ -34,9 +35,9 @@ export async function connectMongo() {
       /* PONER TU STRING ENTERO ACA */
       `mongodb+srv://greensebas:${mongoKey}@cluster0.9omke6v.mongodb.net/backend?retryWrites=true&w=majority`
     );
-    console.log('plug to mongo!');
-  } catch (e) {
-    console.log(e);
+    logger.info('plug to mongo!');
+  } catch (error) {
+    logger.error(error);
     throw 'can not connect to the db';
   }
 }
@@ -48,7 +49,6 @@ export async function connectMongo() {
 // --------------- SOCKET ---------------
 import {Server} from 'socket.io';
 import {productService} from './controllers/products.controllers.js';
-// import { MsgsModel } from "./DAO/models/msgs.model.js";
 import { MsgsSchema } from "./models/schemas/msgs.schema.js";
 
 
@@ -57,7 +57,7 @@ export function connectSocket(httpServer) {
 const socketServer = new Server(httpServer);
 
 socketServer.on('connection', (socket) => {
-    console.log(`New Client Connection with ID: ${socket.id}`);
+    logger.info(`New Client Connection with ID: ${socket.id}`);
 
     socket.on('createProduct', async data => {
         const product = await productService.addProduct(data);

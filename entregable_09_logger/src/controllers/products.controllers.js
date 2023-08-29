@@ -94,9 +94,7 @@ const updateStockController = async (req, res) => {
     try {
         let stock = req.body.stock;
         let pid = req.params.pid;
-        // console.log(stock)
         let updatedProduct = await productService.updateStock(pid, stock);
-        // let updatedProduct = 'updated product 107 ';
 
         if(updatedProduct === 'ID error'){
             return res.status(400).json( {success: false, result: `Product with id: '${pid}' not found`} )

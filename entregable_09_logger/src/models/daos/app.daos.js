@@ -9,6 +9,7 @@ import { CartFsDao } from './cart/cart.fs.dao.js';
 import { ProductFsDao } from './products/products.fs.dao.js';
 import { MessagesFsDAO } from './messages/messages.fs.dao.js';
 import { TicketsFsDAO } from './tickets/tickets.fs.dao.js';
+import { logger } from '../../middlewares/logger.js';
 
 let MessagesDAO;
 let CartsDAO;
@@ -17,7 +18,7 @@ let TicketsDAO;
 
 switch (env.PERSISTENCE) {
   case 'MONGO':
-    console.log('Persistance with MongoDB');
+    logger.info('Persistance with MongoDB');
 
     MessagesDAO = MessagesMongoDAO;
     CartsDAO = CartMongoDAO
@@ -26,7 +27,7 @@ switch (env.PERSISTENCE) {
     break;
 
   case 'FS':
-    console.log('Persistance with FileSystem');
+    logger.info('Persistance with FileSystem');
 
     MessagesDAO = MessagesFsDAO;
     CartsDAO = CartFsDao;

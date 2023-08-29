@@ -1,5 +1,6 @@
 import { cartService } from '../controllers/carts.controllers.js';
 import { productService } from '../controllers/products.controllers.js';
+import { logger } from '../middlewares/logger.js';
 
 const getUserViewsController = async (req, res) => {
     try {
@@ -16,7 +17,7 @@ const getUserViewsController = async (req, res) => {
         res.status(200).render('home', { user });
     }
     catch(error) {
-        console.log(error);
+        logger.error(error);
         res.status(500).json({ success: false, result: error.message });
     }
 };

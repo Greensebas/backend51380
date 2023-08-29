@@ -1,3 +1,4 @@
+import { logger } from "../../../middlewares/logger.js";
 import { ProductsSchema } from "../../schemas/product.schema.js";
 
 class ProductMongoDAO {
@@ -7,7 +8,7 @@ class ProductMongoDAO {
             return products;
         }
         catch (error) {
-            console.log(error)
+            logger.error(error)
         }
     };
 
@@ -17,7 +18,7 @@ class ProductMongoDAO {
             return product
         }
         catch (error) {
-            console.log(error)
+            logger.error(error)
         }
     };
 
@@ -27,7 +28,7 @@ class ProductMongoDAO {
             return newProduct;
         }
         catch (error) {
-            console.log(error)
+            logger.error(error)
         }
     };
 
@@ -37,7 +38,7 @@ class ProductMongoDAO {
             return product
         }
         catch (error) {
-            console.log(error)
+            logger.error(error)
         }
     };
 
@@ -47,7 +48,7 @@ class ProductMongoDAO {
             return updatedProduct
         }
         catch (error) {
-            console.log(error)
+            logger.error(error)
         }
     };
 
@@ -62,7 +63,7 @@ class ProductMongoDAO {
             return res;
         }
         catch (error) {
-            console.log(error)
+            logger.error(error)
         }
     };
 
@@ -77,7 +78,7 @@ class ProductMongoDAO {
             return productsData;
         } 
         catch (error) {
-            console.log(error);
+            logger.error(error);
         }
     }
 

@@ -1,11 +1,11 @@
 import passport from 'passport';
 import local from 'passport-local';
 import { createHash, isValidPassword } from '../utils.js';
-// import { UserSchema } from '../DAO/models/users.model.js';
 import { UserSchema } from '../models/schemas/users.schema.js';
 import GitHubStrategy from 'passport-github2';
 import { CartService } from '../services/cart.service.js';
 import env from './env.config.js';
+import { logger } from '../middlewares/logger.js';
 
 const cartService = new CartService
 
@@ -21,11 +21,11 @@ export function iniPassport() {
       try {
         const user = await UserSchema.findOne({ email: username });
         if (!user) {
-          console.log('User Not Found with username (email) ' + username);
+          logger.warn('User Not Found with username (email) ' + username);
           return done(null, false);
         }
         if (!isValidPassword(password, user.password)) {
-          console.log('Invalid Password');
+          logger.warn('Invalid Password');
           return done(null, false);
         }
 
@@ -48,7 +48,7 @@ export function iniPassport() {
           const { email, firstName, lastName, age } = req.body;
           let user = await UserSchema.findOne({ email: username });
           if (user) {
-            console.log('User already exists');
+            logger.warn('User already exists');
             return done(null, false);
           }
 
@@ -65,12 +65,12 @@ export function iniPassport() {
             role: 'user',
           };
           let userCreated = await UserSchema.create(newUser);
-          console.log(userCreated);
-          console.log('User Registration succesful');
+          logger.info(userCreated);
+          logger.info('User Registration succesful');
           return done(null, userCreated);
         } catch (e) {
-          console.log('Error in register');
-          console.log(e);
+          logger.error('Error in register');
+          logger.error(e);
           return done(e);
         }
       }
@@ -116,15 +116,15 @@ export function iniPassport() {
               password: 'nopass',
             };
             let userCreated = await UserSchema.create(newUser);
-            console.log('User Registration succesful');
+            logger.info('User Registration succesful');
             return done(null, userCreated);
           } else {
-            console.log('User already exists');
+            logger.warn('User already exists');
             return done(null, user);
           }
         } catch (e) {
-          console.log('Error en auth github');
-          console.log(e);
+          logger.error('Error en auth github');
+          logger.error(e);
           return done(e);
         }
       }

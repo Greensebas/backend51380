@@ -1,3 +1,4 @@
+import { logger } from "../../../middlewares/logger.js";
 import { TicketSchema } from "../../schemas/tickets.schema.js";
 
 class TicketsMongoDAO {
@@ -7,7 +8,7 @@ class TicketsMongoDAO {
             const tickets = await TicketSchema.find({});
             return tickets;
         } catch (error) {
-            console.log(error);
+            logger.error(error);
         }
     }
 
@@ -17,7 +18,7 @@ class TicketsMongoDAO {
             ticket = await TicketSchema.findOne({ _id: tid });
             return ticket;
         } catch (error) {
-            console.log(error);
+            logger.error(error);
         }
     }
 
@@ -26,7 +27,7 @@ class TicketsMongoDAO {
             const newTicket = await TicketSchema.create(ticket);
             return newTicket;
         } catch (error) {
-            console.log(error);
+            logger.error(error);
         }
     }
 
@@ -39,7 +40,7 @@ class TicketsMongoDAO {
             const deletedTicket = await TicketSchema.findOneAndDelete({_id: tid});
             return { success: true, message: 'Ticket deleted successfully', payload: deletedTicket };
         } catch (error) {
-            console.log(error);
+            logger.error(error);
         }
     }
 
