@@ -1,0 +1,2 @@
+USER: adminCoder@coder.com PASS adminCod3r123
+USER: jperez@gmail.com PASS: asd123
