@@ -12,6 +12,8 @@ import env from './config/env.config.js';
 import compression from 'express-compression';
 import errorHandler from './middlewares/error.js'
 import { addLogger, logger } from './middlewares/logger.js';
+import swaggerJSDoc from 'swagger-jsdoc';
+import swaggerUiExpress from 'swagger-ui-express';
 
 
 const mongoKey = env.DB_PASSWORD
@@ -47,6 +49,27 @@ app.use(
 iniPassport();
 app.use(passport.initialize());
 app.use(passport.session());
+
+// Documentation
+const swaggerOptions = {
+  definition: {
+    openapi: '3.0.1',
+    info: {
+      title: 'Documentation CoderBackend51380 API REST',
+      description: 'Documentation example using Swagger.',
+    },
+    servers: [
+      {
+        url: `http://localhost:${PORT}/api`,
+        description: 'Development server',
+      },
+    ],
+  },
+  apis: [`${__dirname}/docs/**/*.yaml`],
+};
+
+const specs = swaggerJSDoc(swaggerOptions);
+app.use('/apidocs', swaggerUiExpress.serve, swaggerUiExpress.setup(specs));
 
 // Routes
 app.use('/', routes);

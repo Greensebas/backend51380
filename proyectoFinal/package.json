@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "node ./src/app.js --mode PRODUCTION",
-    "dev": "nodemon ./src/app.js --mode DEVELOPMENT"
+    "dev": "nodemon e- yaml,js ./src/app.js --mode DEVELOPMENT"
   },
   "keywords": [],
   "author": "",
@@ -33,6 +33,8 @@
     "winston": "^3.10.0"
   },
   "devDependencies": {
-    "@faker-js/faker": "^8.0.2"
+    "@faker-js/faker": "^8.0.2",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0"
   }
 }
