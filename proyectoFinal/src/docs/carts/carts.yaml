@@ -1,29 +1,5 @@
 paths:
   /carts:
-    get:
-      summary: Get all carts
-      tags:
-        - Carts
-      description: You can get all carts available.
-
-      responses:
-        '200':
-          description: Successful response
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Cart'
-
-        '400':
-          description: Bad request
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Error'
     post:
       summary: Create a new cart
       tags:
@@ -46,6 +22,17 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Error'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Error'
+                example:
+                  status: error
+                  error: Internal server error.
 
   /carts/{cid}:
     parameters:
@@ -79,6 +66,18 @@ paths:
                 example:
                   status: error
                   error: Invalid Cart ID
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Error'
+                example:
+                  status: error
+                  error: Internal server error.
+
     delete:
       summary: Delete cart by ID
       tags:
@@ -92,7 +91,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CartClear'
-
         '400':
           description: Bad request
           content:
@@ -104,6 +102,18 @@ paths:
                 example:
                   status: error
                   error: Invalid Cart ID
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Error'
+                example:
+                  status: error
+                  error: Internal server error.
+
     put:
       summary: Update cart with new body
       tags:
@@ -136,6 +146,18 @@ paths:
                 example:
                   status: error
                   error: Invalid Cart ID
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Error'
+                example:
+                  status: error
+                  error: Internal server error.
+
 
   /carts/{cid}/products/{pid}:
     parameters:
@@ -174,6 +196,18 @@ paths:
                 example:
                   status: error
                   error: Invalid product or card ID.
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Error'
+                example:
+                  status: error
+                  error: Internal server error.
+
     delete:
       summary: Delete product from cart
       tags:
@@ -199,6 +233,18 @@ paths:
                 example:
                   status: error
                   error: Invalid product or card ID.
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Error'
+                example:
+                  status: error
+                  error: Internal server error.
+
     put:
       summary: Update product quantity
       tags:
@@ -231,6 +277,18 @@ paths:
                 example:
                   status: error
                   error: Invalid product or card ID.
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Error'
+                example:
+                  status: error
+                  error: Internal server error.
+
 components:
   schemas:
     Cart:
@@ -269,9 +327,6 @@ components:
     Product:
       type: object
       properties:
-        owner:
-          type: string
-          description: Product's Owner.
         _id:
           type: string
           description: Product's ID.

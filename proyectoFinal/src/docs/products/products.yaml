@@ -266,30 +266,39 @@ components:
       properties:
         _id:
           type: string
+          default: aaaa0000aaaa0000aaaa0000
           description: Product's ID.
         title:
           type: string
+          default: Este es un título
           description: Product's Title.
         description:
           type: string
+          default: Esto es una descripción
           description: Product's Description.
         price:
           type: number
+          default: 100
           description: Product's Price.
+        stock:
+          type: number
+          default: 100
+          description: Product's Stock.
         thumbnails:
           type: string
+          default: Sin imagen
           description: Product's Thumbnails.
         code:
           type: number
+          default: aaa111
           description: Product's Code.
-        stock:
-          type: number
-          description: Product's Stock.
         category:
           type: string
+          default: Sin categoría
           description: Product's Category.
         status:
           type: boolean
+          default: true
           description: Product's Status.
 
     Error:
