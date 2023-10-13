@@ -11,6 +11,7 @@ import loggerRoutes from './logger.routes.js'
 
 const router = express.Router();
 
+router.use('/', sessionsRoutes)
 router.use('/api/products', productsRoutes);
 router.use('/api/carts', cartsRoutes);
 router.use('/api/sessions', sessionsRoutes);

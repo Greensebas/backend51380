@@ -18,7 +18,7 @@ import {
 
 const router = express.Router();
 
-
+router.get('/', redirectIfLoggedIn, getLoginSessionsController)
 router.get('/login', redirectIfLoggedIn, getLoginSessionsController);
 router.get('/register', redirectIfLoggedIn, getRegisterSessionsController);
 router.get('/profile', isLogged, getProfileSessionsController);
