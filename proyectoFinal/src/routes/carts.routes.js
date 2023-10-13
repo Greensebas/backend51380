@@ -1,5 +1,6 @@
 import express from 'express';
 import {
+    getAllCartsController,
     saveCartController,
     getCartByIdController,
     addToCartController,
@@ -15,6 +16,7 @@ import { isCartOwner, isLogged, isNotAdmin } from '../middlewares/auth.js';
 
 const router = express.Router()
 
+router.get('/', getAllCartsController);
 router.post('/', saveCartController);
 router.get('/:cid', getCartByIdController);
 router.get('/:cid/purchase', isLogged, isNotAdmin, purchaseCartController);

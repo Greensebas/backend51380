@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "start": "node ./src/app.js --mode PRODUCTION",
-    "dev": "nodemon e- yaml,js ./src/app.js --mode DEVELOPMENT"
+    "dev": "nodemon e- yaml,js ./src/app.js --mode DEVELOPMENT",
+    "test": "mocha ./test/**/*.test.js"
   },
   "keywords": [],
   "author": "",
@@ -34,6 +35,9 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^8.0.2",
+    "chai": "^4.3.10",
+    "mocha": "^10.2.0",
+    "supertest": "^6.3.3",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.0"
   }

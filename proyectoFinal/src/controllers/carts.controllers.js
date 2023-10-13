@@ -1,9 +1,19 @@
 import { userDTO } from "../models/DTO/user.dto.js";
 import { CartService } from "../services/cart.service.js";
-// import { TicketService } from "../services/ticket.service.js";
+
 
 const cartService = new CartService;
-// const ticketService = new TicketService;
+
+// GET /api/carts
+const getAllCartsController = async (req, res) => {
+    try {
+        let classResponse = await cartService.getCarts();
+        return res.status(200).json( {success: true, result: classResponse} )
+    }
+    catch(error) {
+        res.status(500).json({ success: false, result: error.message });
+    }
+}
 
 // POST /api/carts
 const saveCartController = async (req, res) => {
@@ -126,6 +136,7 @@ const purchaseCartController = async (req, res) => {
 };
 
 export {
+    getAllCartsController,
     saveCartController,
     getCartByIdController,
     addToCartController,
