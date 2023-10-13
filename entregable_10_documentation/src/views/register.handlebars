@@ -1,0 +1,16 @@
+<section class="form-section">
+  <h3 class="title">Register</h3>
+
+  <div class="form-container">
+    <form class="form-form" action="/api/sessions/register" method="POST" >
+      <input class="form-input" id="firstName" name="firstName" placeholder="firstName" type="text">
+      <input class="form-input" id="lastName" name="lastName" placeholder="lastName" type="text">
+      <input class="form-input" id="email" name="email" placeholder="email" type="text">
+      <input class="form-input" id="age" name="age" placeholder="age" type="number">
+      <input class="form-input" id="password" name="password" placeholder="password" type="password" autocomplete="off">
+      <input class="form-submit" type="submit" value="Register!">
+    </form>
+  </div>
+
+  <a class="redirect" href="/api/sessions/login">Do you already have an account?</a>
+</section>

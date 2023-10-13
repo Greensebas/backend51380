@@ -1,0 +1,10 @@
+warn: alert
+warn: alert
+warn: desde warn!
+error: desde error!!
+warn: desde warn!
+error: desde error!!
+[18:31:00] [ERROR]: Este es un mensaje de error.
+[18:31:00] [FATAL]: Este es un mensaje fatal.
+[18:56:55] [ERROR]: Este es un mensaje de error.
+[18:56:55] [FATAL]: Este es un mensaje fatal.
