@@ -56,6 +56,18 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Product'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Error'
+                example:
+                  status: error
+                  error: Internal server error.
+
     post:
       tags:
         - Products
@@ -97,6 +109,17 @@ paths:
                 example:
                   status: error
                   error: Wrong Data Format.
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Error'
+                example:
+                  status: error
+                  error: Internal server error.
 
   /products/{pid}:
     parameters:
@@ -105,6 +128,34 @@ paths:
         required: true
         description: Product's ID.
         example: 647281f59f14215ff253872e
+    
+    get:
+      tags:
+        - Products
+      summary: Get product by ID.
+      description: Get Product by ID.
+      operationId: getProduct
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Error'
+                example:
+                  status: error
+                  error: Internal server error.
+
     put:
       tags:
         - Products
@@ -146,6 +197,18 @@ paths:
                 example:
                   status: error
                   error: Wrong Data Format.
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Error'
+                example:
+                  status: error
+                  error: Internal server error.
+
     delete:
       tags:
         - Products
@@ -184,15 +247,23 @@ paths:
                 example:
                   status: error
                   error: Wrong Data Format.
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Error'
+                example:
+                  status: error
+                  error: Internal server error.
 
 components:
   schemas:
     Product:
       type: object
       properties:
-        owner:
-          type: string
-          description: Product's Owner.
         _id:
           type: string
           description: Product's ID.
@@ -220,6 +291,7 @@ components:
         status:
           type: boolean
           description: Product's Status.
+
     Error:
       type: object
       properties:
@@ -233,11 +305,11 @@ components:
       properties:
         title:
           type: string
-          default: Prueba Swagger 01
+          default: Este es un título
           description: Product's Title.
         description:
           type: string
-          default: Este es un producto de prueba
+          default: Esto es una descripción
           description: Product's Description.
         price:
           type: number
@@ -249,17 +321,14 @@ components:
           description: Product's Stock.
         thumbnails:
           type: string
-          default: https://i.postimg.cc/hjBs23HV/test.jpg
+          default: Sin imagen
           description: Product's Thumbnails.
         code:
           type: number
-          default: a100134
+          default: aaa111
           description: Product's Code.
         category:
           type: string
-          default: test
+          default: Sin categoría
           description: Product's Category.
-        owner:
-          type: string
-          default: test@test.com
-          description: Product's Owner.
+

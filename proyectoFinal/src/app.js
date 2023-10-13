@@ -57,6 +57,7 @@ const swaggerOptions = {
     info: {
       title: 'Documentation CoderBackend51380 API REST',
       description: 'Documentation example using Swagger.',
+      version: '1.0.0',
     },
     servers: [
       {
