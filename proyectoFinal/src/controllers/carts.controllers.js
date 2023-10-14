@@ -96,7 +96,7 @@ const emptyCartByIdController = async (req, res) => {
 };
 
 
-// DELETE /api/carts/:cid
+// PUT /api/carts/:cid
 const overwriteCartByIdController = async (req, res) => {
     try{
         let cid = req.params.cid
@@ -109,7 +109,7 @@ const overwriteCartByIdController = async (req, res) => {
     }
 };
 
-
+// GET /api/carts/:cid/purchase
 const purchaseCartController = async (req, res) => {
     try{
         const cid = req.params.cid;
