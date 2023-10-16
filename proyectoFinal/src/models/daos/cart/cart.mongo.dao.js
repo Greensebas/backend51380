@@ -119,6 +119,15 @@ class CartMongoDAO {
         }
     };
 
+    async deleteCartById(id) {
+        try {
+            const deletedCart = await CartSchema.deleteOne({ _id: id });
+            return deletedCart;
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
 }
 
 export {CartMongoDAO}

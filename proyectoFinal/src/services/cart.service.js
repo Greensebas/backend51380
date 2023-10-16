@@ -37,6 +37,16 @@ export class CartService {
         }
     };
 
+    async deleteCartById( cid ) {
+        try {
+            let cart = await cartDAO.deleteCartById( cid );
+            return cart;
+        }
+        catch (error) {
+            throw new Error(error.message);
+        }
+    };
+
     async addToCart( cid, pid ) {
         try {
             let res = await cartDAO.addToCart( cid, pid); 
