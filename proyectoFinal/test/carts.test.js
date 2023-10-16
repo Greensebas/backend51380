@@ -3,14 +3,14 @@ import supertest from 'supertest';
 import chai from 'chai';
 
 const expect = chai.expect;
-const requester = supertest('http://localhost:8080')
+const requester = supertest('http://localhost:8080');
 
 
 
 describe('Testing CART ENDPOINTS', () => {
-  // this.timeout(20000);
+
   before(async function () {
-    logger.info('Init all tests')
+    logger.info('Init all carts tests')
   });
 
   let cartId;

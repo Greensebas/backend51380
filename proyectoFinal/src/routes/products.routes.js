@@ -14,7 +14,7 @@ const router = express.Router();
 // Routes
     router.get( '/', isLogged, getProductsController);
     router.get('/:pid', isLogged, getProductByIdController);
-    router.post('/',  addProductController); //isLogged, isAdmin,
+    router.post('/',  addProductController);
     router.delete('/:pid', isLogged, isAdmin, deleteProductByIdController);
     router.put('/:pid', isLogged, isAdmin, updateProductController);
 
