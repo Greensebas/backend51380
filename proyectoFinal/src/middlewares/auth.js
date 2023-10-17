@@ -14,7 +14,7 @@ const isAdmin = (req, res, next) => {
 };
 
 const isLogged = (req, res, next) => {
-  if(req.isAuthenticated()) {
+  if(process.env.NODE_ENV === 'DEVELOPMENT' && !req.isAuthenticated() || process.env.NODE_ENV === 'PRODUCTION' && req.isAuthenticated() ) {
     return next()
   };
   return res.redirect('/api/sessions/login')
