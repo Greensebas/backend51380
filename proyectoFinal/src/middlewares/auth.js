@@ -22,7 +22,7 @@ const isLogged = (req, res, next) => {
 
 const redirectIfLoggedIn = (req, res, next) => {
   if (req.isAuthenticated()) {
-    return res.redirect('/products');
+    return res.redirect('/views/products');
   };
   return next();
 }
