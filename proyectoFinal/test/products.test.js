@@ -23,7 +23,7 @@ describe('Testing PRODUCTS ENDPOINTS', () => {
     });
 
 
-    it('Check get one product -> GET /api/products/:id', async () => {
+    it('Get product by id TEST | GET /api/products/:id', async () => {
         const response = await requester.get('/api/products/6478e525e2fffa91b4786682');
     
         expect(response.status).to.eql(200);

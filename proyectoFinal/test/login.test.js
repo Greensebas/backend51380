@@ -12,7 +12,7 @@ describe('Testing LOGIN-LOGOUT ENDPOINTS', () => {
         logger.info('Init all login tests')
     });
 
-    it('Login tester user TEST | POST /api/sessions/login', async () => {
+    it('Login user TEST | POST /api/sessions/login', async () => {
         const response = await requester.post('/api/sessions/login').send({
             email: 'jperez@gmail.com',
             password: 'asd123'
@@ -25,7 +25,7 @@ describe('Testing LOGIN-LOGOUT ENDPOINTS', () => {
 
     })
 
-    it('Checking user logout -> GET /auth/logout', async () => {
+    it('Logout user TEST | GET /auth/logout', async () => {
         const response = await requester.get('/api/sessions/logout');
     
         expect(response.status).to.eql(302);
