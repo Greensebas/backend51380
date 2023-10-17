@@ -49,7 +49,6 @@ const getFailLoginSessionsController = (req, res) => {
 const getCurrentSessionsController = (req, res) => {
     const infoUser = new userDTO(req.session.user);
     return res.send(infoUser);
-    // return res.send(req.session);
 };
 
 const getGithubCallbackSessionsController = (req, res) => {
